@@ -4,8 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Members Page</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <!--E-Board Members-->
+    <div class="slider-container">
+        <div class="slider" id="boardSlider">
+            
+        </div>
+    </div>
+    <!-- Navigation buttons -->
+    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+    <!--Present active members-->
+    <div class="Members Slider">
+        <div class="Member" id="membersSlider">
+            <div contenteditable="true"></div>
+        </div>
+
+    </div>
+
+    <!--Just a list of names, clickable brings to linked-in-->
+    <div class="Alumni List" id="alumniList">
+
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
