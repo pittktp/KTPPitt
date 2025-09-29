@@ -1,0 +1,172 @@
+/* Tabs */
+.tab-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 60px auto 30px;
+}
+
+.tab {
+    padding: 10px 20px;
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #444;
+    background: rgba(200, 200, 200, 0.4);
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    transform: scale(1.05);
+    background: rgba(180, 180, 180, 0.8);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.tab.active {
+    background: #315CA9;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(49, 92, 169, 0.4);
+}
+
+/* Tab content */
+.content {
+    display: none;
+    opacity: 0;
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 60px;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.content.active {
+    display: block;
+    opacity: 1;
+}
+
+.content h2 {
+    margin-bottom: 15px;
+    color: #003366;
+}
+
+/* President headshot layout */
+.president-welcome {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.president-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.photo-btn {
+    background: radial-gradient(circle at 30% 20%, rgba(64, 186, 120, 0.18), transparent 40%),
+        linear-gradient(135deg, rgba(49, 92, 169, 0.06), rgba(0, 0, 0, 0.02));
+    border: none;
+    padding: 18px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.photo-btn img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    border: 8px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 6px rgba(144, 238, 144, 0.15), 0 8px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.photo-btn:hover {
+    transform: translateY(-6px);
+}
+
+.photo-btn:hover img {
+    transform: scale(1.03) rotate(-1deg);
+    box-shadow: 0 0 0 8px rgba(144, 238, 144, 0.22), 0 10px 40px rgba(0, 0, 0, 0.16);
+}
+
+.president-text p {
+    line-height: 1.75;
+    color: #222;
+    margin-bottom: 1rem;
+}
+
+/* Modal / lightbox */
+.photo-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+}
+
+.photo-modal[aria-hidden="false"] {
+    display: flex;
+}
+
+.photo-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+}
+
+.photo-modal__content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 250, 0.95));
+    z-index: 2;
+}
+
+.photo-modal__content img {
+    display: block;
+    max-width: 72vmin;
+    max-height: 72vmin;
+    width: auto;
+    height: auto;
+    border-radius: 8px;
+}
+
+.photo-modal__close {
+    position: absolute;
+    right: 8px;
+    top: 6px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 880px) {
+    .president-welcome {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .president-photo {
+        margin-bottom: 16px;
+    }
+
+    .photo-btn img {
+        width: 180px;
+        height: 180px;
+    }
+}
