@@ -13,17 +13,26 @@ window.addEventListener("scroll", () => {
 const sections = document.querySelectorAll("section");
 const navLinks = document.querySelectorAll(".nav-links a");
 
+// === Mobile Menu Toggle ===
+const mobileMenu = document.getElementById("mobile-menu");
+const navLinksContainer = document.querySelector(".nav-links");
+
+mobileMenu.addEventListener("click", () => {
+  navLinksContainer.classList.toggle("active");
+  mobileMenu.classList.toggle("open");
+});
+
 window.addEventListener("scroll", () => {
   let current = "";
 
-  sections.forEach(section => {
+  sections.forEach((section) => {
     const sectionTop = section.offsetTop - 120; // offset for sticky nav
     if (window.scrollY >= sectionTop) {
       current = section.getAttribute("id");
     }
   });
 
-  navLinks.forEach(link => {
+  navLinks.forEach((link) => {
     link.classList.remove("active");
     if (link.getAttribute("href").includes(current)) {
       link.classList.add("active");
