@@ -1,0 +1,296 @@
+/* Rush page styles */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px
+}
+
+/* Color tokens aligned with about.css */
+:root {
+    --primary: #315CA9;
+    --muted: #555;
+    --bg: #f6f7fb
+}
+
+body {
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: #222
+}
+
+.hero {
+    padding: 64px 0;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(250, 250, 250, 0.95))
+}
+
+.hero .hero-content {
+    max-width: 980px;
+    margin: 0 auto
+}
+
+.hero h1 {
+    font-size: 44px;
+    margin: 0 0 8px;
+    color: var(--primary);
+    font-weight: 800
+}
+
+.hero p {
+    color: var(--muted);
+    margin: 0
+}
+
+.tab {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600
+}
+
+.rush-main {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 48px 0
+}
+
+.rush-schedule {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 28px;
+    align-items: start
+}
+
+.schedule-header h2 {
+    margin: 0 0 6px
+}
+
+.muted {
+    color: var(--muted)
+}
+
+.timeline {
+    border-left: 3px dotted rgba(0, 0, 0, 0.06);
+    padding-left: 28px
+}
+
+.timeline-item {
+    display: block;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04)
+}
+
+.timeline-item h3 {
+    margin: 0 0 6px;
+    color: #111
+}
+
+.meta {
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 8px
+}
+
+.desc {
+    color: #333;
+    line-height: 1.6
+}
+
+.rush-media .pillar-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(12, 40, 60, 0.06)
+}
+
+.faq {
+    padding: 18px 0
+}
+
+.accordion {
+    max-width: 900px
+}
+
+.faq-item {
+    border-top: 1px solid #eee
+}
+
+.faq-q {
+    width: 100%;
+    text-align: left;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: 700;
+    background: transparent;
+    border: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer
+}
+
+.faq-q .plus {
+    color: var(--primary);
+    font-size: 22px
+}
+
+.faq-a {
+    padding: 0 18px 18px;
+    color: var(--muted);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .32s ease, padding .24s ease
+}
+
+.faq-item.open .faq-a {
+    max-height: 420px;
+    padding-top: 8px
+}
+
+@media(max-width:900px) {
+    .rush-schedule {
+        grid-template-columns: 1fr
+    }
+
+    .hero h1 {
+        font-size: 28px
+    }
+
+    .container {
+        padding: 0 16px
+    }
+}
+
+/* Slanted cards section */
+.slanted-section {
+    padding: 36px 0
+}
+
+.slanted-row {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    justify-content: space-between
+}
+
+.slanted-card {
+    flex: 1;
+    min-height: 160px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(12, 40, 60, 0.08);
+    transform: skewX(-12deg);
+    overflow: hidden;
+    transition: transform .28s ease, box-shadow .28s ease
+}
+
+.slanted-card.alt {
+    background: linear-gradient(135deg, #f6fbff, #e8f0ff)
+}
+
+.slanted-card:hover {
+    transform: skewX(-12deg) translateY(-6px);
+    box-shadow: 0 20px 50px rgba(12, 40, 60, 0.12)
+}
+
+.slanted-inner {
+    transform: skewX(12deg);
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%
+}
+
+.slanted-inner h3 {
+    margin: 0 0 8px;
+    color: var(--primary)
+}
+
+.slanted-inner p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.5
+}
+
+@media(max-width:880px) {
+    .slanted-row {
+        flex-direction: column
+    }
+
+    .slanted-card {
+        transform: none
+    }
+
+    .slanted-inner {
+        transform: none
+    }
+}
+
+/* Schedule cards */
+
+.schedule-cards {
+    display: center;
+    gap: 18px;
+    justify-content: center; /* center cards when there's space */
+    align-items: flex-start;
+    overflow-x: auto;
+    padding: 6px 0;
+    -webkit-overflow-scrolling: touch;
+}
+
+.schedule-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 8px 26px rgba(12, 40, 60, 0.06);
+    cursor: pointer;
+    transition: transform .22s ease, box-shadow .22s ease
+}
+
+.schedule-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 50px rgba(12, 40, 60, 0.12)
+}
+
+.schedule-card .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px
+}
+
+.schedule-card h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--primary)
+}
+
+.schedule-card .meta {
+    color: var(--muted);
+    font-size: 0.95rem
+}
+
+.schedule-card .card-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .32s ease, padding .28s ease
+}
+
+.schedule-card.open .card-body {
+    max-height: 240px;
+    padding-top: 10px
+}
+
+.schedule-card .location {
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 8px
+}
+
+@media(max-width:600px) {
+    .schedule-cards{display:block}
+    .schedule-card{margin-bottom:12px}
+}

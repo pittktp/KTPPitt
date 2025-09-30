@@ -42,11 +42,11 @@
     </section>
 
     <!-- ===== TABS ===== -->
-    <nav class="tab-container">
-        <a href="#" class="tab active" data-tab="welcome">President's Welcome</a>
-        <a href="#" class="tab" data-tab="pillars">Our Pillars</a>
-        <a href="#" class="tab" data-tab="history">History</a>
-        <a href="#" class="tab" data-tab="dei">DEI Commitment</a>
+    <nav class="tab-container" aria-label="Page sections">
+        <a href="#welcome" class="tab active">President's Welcome</a>
+        <a href="#pillars" class="tab">Our Pillars</a>
+        <a href="#history" class="tab">History</a>
+        <a href="#dei" class="tab">DEI Commitment</a>
     </nav>
 
     <!-- ===== CONTENT ===== -->
@@ -57,7 +57,7 @@
             <div class="president-welcome">
                 <div class="president-photo">
                     <button class="photo-btn" aria-label="Open president headshot">
-                        <img src="images/Connor.png" alt="Helen Liang, President 2025" loading="lazy">
+                        <img src="images/Connor.png" alt="Connor Reger, President 2025" loading="lazy">
                     </button>
                 </div>
 
@@ -103,30 +103,87 @@
 
         <section id="pillars" class="content">
             <h2>Our Pillars</h2>
-            <p>We stand on four main pillars: Leadership, Innovation, Community, and Integrity. These guide our
-                decisions and
-                inspire us to push forward with purpose.</p>
+            <p>We stand on five main pillars that guide our chapter and help members grow academically, socially,
+                and professionally.</p>
+
+            <div class="pillars-grid">
+                <article class="pillar-card">
+                    <div class="pillar-icon" style="background: rgba(255, 182, 193, 0.25);">🎒</div>
+                    <h3>Professional Development</h3>
+                    <p>Through workshops, mentorship, and company recruiting, we prepare members for success in
+                        technology careers.</p>
+                </article>
+
+                <article class="pillar-card">
+                    <div class="pillar-icon" style="background: rgba(255, 235, 205, 0.25);">🌐</div>
+                    <h3>Alumni Connections</h3>
+                    <p>Our alumni network connects members with industry opportunities across tech and beyond.</p>
+                </article>
+
+                <article class="pillar-card">
+                    <div class="pillar-icon" style="background: rgba(204, 255, 235, 0.25);">👥</div>
+                    <h3>Social Growth</h3>
+                    <p>Exclusive social events and traditions help members build lasting friendships and community.
+                    </p>
+                </article>
+
+                <article class="pillar-card">
+                    <div class="pillar-icon" style="background: rgba(200, 255, 200, 0.25);">🎮</div>
+                    <h3>Technical Advancement</h3>
+                    <p>Project teams, hackathons, and workshops make it easy for members to expand their technical
+                        expertise.</p>
+                </article>
+
+                <article class="pillar-card">
+                    <div class="pillar-icon" style="background: rgba(210, 225, 255, 0.25);">🎓</div>
+                    <h3>Academic Support</h3>
+                    <p>Study groups and mentoring help members achieve academic excellence while balancing campus life.
+                    </p>
+                </article>
+            </div>
         </section>
 
         <section id="history" class="content">
             <h2>History</h2>
-            <p>Since our founding, Kappa Theta Pi has grown into a thriving community of students dedicated to making an
-                impact. From our first pledge class to our current chapter, we celebrate growth, resilience, and
-                excellence.</p>
+            <div class="president-welcome">
+                <div class="president-photo">
+                    <div class="history-badge photo-btn" aria-hidden="true">
+                        <img src="images/logo.png" alt="KTP Logo" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="president-text">
+                    <p>Since our founding, Kappa Theta Pi at Pitt has grown into a thriving chapter focused on
+                        developing technical leaders and supporting one another through academics and professional
+                        growth.</p>
+
+                    <p>From our early pledge classes to the current brothers, our history is defined by collaboration,
+                        resilience, and a commitment to service. We honor the traditions that shaped us while adapting
+                        to meet the needs of today's students.</p>
+                </div>
+            </div>
         </section>
 
         <section id="dei" class="content">
             <h2>DEI Commitment</h2>
-            <p>The world of technology is unique, diverse, and multi-faceted. We believe that our brothers should be
-                too. In Kappa Theta Pi, we're passionate about cultivating an inclusive community that promotes and
-                values diversity. Our dedication to diversity, equity, and inclusion is unwavering; these values are
-                central to our mission and to our impact. We know that having heterogeneous perspectives helps generate
-                better ideas to solve the nuanced problems of a changing — and increasingly diverse — world.
+            <div class="president-welcome">
+                <div class="president-photo">
+                    <div class="photo-btn" aria-hidden="true">
+                        <img src="images/KTPLinkedIn_pfp_25-26.png" alt="KTP group" loading="lazy">
+                    </div>
+                </div>
 
-                In KTP, we have a responsibility to address structural inequality in our communities as well as the
-                social and cultural dimensions of technology. We are committed to harnessing the best of KTP — our
-                people, platform, and technical innovation — to make lasting change inside and outside of our
-                organization.</p>
+                <div class="president-text">
+                    <p>We believe a strong chapter is one that reflects the diversity of the communities we serve. KTP
+                        is
+                        committed to creating an inclusive environment where all members feel seen, heard, and
+                        empowered.</p>
+
+                    <p>Our DEI initiatives include outreach to underrepresented groups in tech, inclusive recruitment
+                        practices, and programming that centers diverse perspectives. We continually evaluate our
+                        practices to ensure equity in leadership, opportunities, and access.</p>
+                </div>
+            </div>
         </section>
     </main>
 

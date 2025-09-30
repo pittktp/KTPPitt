@@ -1,11 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rush Page</title>
+    <title>Rush | Kappa Theta Pi - Pitt</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="about.css">
+    <link rel="stylesheet" href="rush.css">
+    <!-- Fonts (match about.html) -->
+    <link href="https://api.fontshare.com/v2/css?f[]=geist@1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#ffffff">
 </head>
-<body>
-    
+
+<!-- ===== NAVBAR ===== -->
+<header>
+    <div class="nav-container">
+        <div class="logo">
+            <img src="/images/logo.png" alt="KTP Logo" href="index.html">
+        </div>
+        <nav class="nav-center">
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="members.html">Members</a></li>
+                <li><a href="rush.html" class="active">Rush</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO (uses same styles as about page) -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Learn About Joining KTP!</h1>
+        <p>Welcome to Kappa Theta Pi's Fall Rush! Here's our rush schedule. Applications are due September 6, 2025.</p>
+        <div style="margin-top:18px">
+            <a class="tab" href="#interest" style="background:#315CA9; color:#fff; margin-right:10px">Interest Form</a>
+            <a class="tab" href="#apply"
+                style="background:transparent; border:2px solid #315CA9; color:#315CA9">Application Link</a>
+        </div>
+        <p class="hero-sub" style="margin-top:12px">You can also join our <a href="#calendar">F25 Rush Google
+                Calendar</a> to see dates and locations.</p>
+    </div>
+</section>
+</header>
+
+<main class="container rush-main">
+
+    <!-- Slanted cards summary section -->
+    <section class="slanted-section container">
+        <div class="slanted-row">
+            <article class="slanted-card">
+                <div class="slanted-inner">
+                    <h3>Professional Growth</h3>
+                    <p>Workshops, mentorship, and company connections to help you land internships and jobs.</p>
+                </div>
+            </article>
+
+            <article class="slanted-card alt">
+                <div class="slanted-inner">
+                    <h3>Hands-on Projects</h3>
+                    <p>Join teams and build real projects that you can showcase on resumes and interviews.</p>
+                </div>
+            </article>
+
+            <article class="slanted-card">
+                <div class="slanted-inner">
+                    <h3>Community & Socials</h3>
+                    <p>Friendly study groups, socials, and events that build lasting connections.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="rush-schedule">
+        <div class="schedule-header">
+            <h2>Rush Schedule</h2>
+            <p class="muted">Attend any Open Rush events to learn more — everyone is welcome.</p>
+        </div>
+
+        <div id="schedule-cards" class="schedule-cards" aria-live="polite">
+            <!-- schedule cards will be rendered here by rush.js -->
+        </div>
+
+        <aside class="rush-media">
+            <div class="pillar-card" style="padding:20px;">
+                <h3 style="margin-top:0">Important</h3>
+                <p style="color:#555;">Applications due: <strong>September 6, 2025</strong></p>
+                <p style="color:#555;">Questions? Email <a
+                        href="mailto:upittkappathetapi@gmail.com">upittkappathetapi@gmail.com</a></p>
+                <div style="margin-top:12px; display:flex; gap:8px">
+                    <a class="tab" href="#interest" style="background:#315CA9; color:#fff;">Interest Form</a>
+                    <a class="tab" href="#apply"
+                        style="background:transparent; border:2px solid #315CA9; color:#315CA9">Apply</a>
+                </div>
+            </div>
+        </aside>
+    </section>
+
+    <section class="faq" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="accordion" id="faq-list">
+            <div class="faq-item">
+                <button class="faq-q">Who can rush KTP?<span class="plus">+</span></button>
+                <div class="faq-a">Students of any year and major at the University of Pittsburgh who are interested
+                    in tech, professional development, and social events are welcome to rush.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">What is KTP looking for?<span class="plus">+</span></button>
+                <div class="faq-a">We look for motivated students who want to grow professionally, work on projects,
+                    and participate in our community. Team players who show initiative fit best.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">How would I benefit from KTP?<span class="plus">+</span></button>
+                <div class="faq-a">You get access to networking events, mentorship, technical workshops, project
+                    opportunities, and lifelong friends.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">Which majors are represented in KTP?<span class="plus">+</span></button>
+                <div class="faq-a">Computer Science, Data Science, Engineering, Business, and many more — KTP is
+                    interdisciplinary.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">What types of social events does KTP have?<span class="plus">+</span></button>
+                <div class="faq-a">We host mixers, game nights, outings, and joint events with other student orgs.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">How much of a time commitment is pledging?<span class="plus">+</span></button>
+                <div class="faq-a">Pledging varies by semester but typically includes weekly meetings, workshops,
+                    and at least one committee commitment. We emphasize balance with academics.</div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="rush.js"></script>
+<!-- Include shared about behavior if present (lightbox tabs) -->
+<script src="about.js"></script>
+
+<!-- ===== FOOTER ===== -->
+<footer id="contact">
+    <div class="container footer-grid">
+        <div>
+            <h3>Contact</h3>
+            <p><a href="mailto:upittkappathetapi@gmail.com">upittkappathetapi@gmail.com</a></p>
+        </div>
+        <div>
+            <h3>Follow Us</h3>
+            <p>
+                <a href="https://www.instagram.com/ktp_pitt/" target="_blank">Instagram</a><br>
+                <a href="https://www.linkedin.com/company/kappa-theta-pi-pitt/" target="_blank">LinkedIn</a>
+            </p>
+        </div>
+        <div>
+            <h3>National</h3>
+            <p><a href="https://www.kappathetapi.org/" target="_blank">Visit Nationals</a></p>
+        </div>
+    </div>
+    <p class="copyright">© 2025 Kappa Theta Pi @ Pitt. All rights reserved.</p>
+</footer>
 </body>
+
 </html>
