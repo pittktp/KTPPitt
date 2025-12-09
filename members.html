@@ -1,35 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members Page</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!--E-Board Members-->
-    <div class="slider-container">
-        <div class="slider" id="boardSlider">
-            
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Members - Kappa Theta Pi @ Pitt</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="members.css" />
+    <!-- Fonts -->
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=geist@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ===== NAVBAR ===== -->
+    <header>
+      <div class="nav-container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="/images/logo.png" alt="KTP Logo" />
+          </a>
         </div>
-    </div>
-    <!-- Navigation buttons -->
-    <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
-    <button class="next" onclick="moveSlide(1)">&#10095;</button>
+        <nav class="nav-center">
+          <ul class="nav-links">
+            <li><a href="/about.html">About Us</a></li>
+            <li><a href="/members.html" class="active">Members</a></li>
+            <li><a href="/rush.html">Rush</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-    <!--Present active members-->
-    <div class="Members Slider">
-        <div class="Member" id="membersSlider">
-            <div contenteditable="true"></div>
+    <main class="members-page">
+      <!-- ===== E-BOARD SECTION ===== -->
+      <section class="section eboard-section">
+        <div class="container">
+          <h1 class="section-title">Executive Board</h1>
+          <p class="section-description">
+            Meet our leadership team for the 2024-2025 academic year
+          </p>
+
+          <div class="slider-container">
+            <button
+              class="slider-btn prev"
+              onclick="moveSlide(-1)"
+              aria-label="Previous"
+            >
+              &#10094;
+            </button>
+
+            <div class="slider" id="boardSlider">
+              <!-- E-Board members will be loaded here dynamically -->
+            </div>
+
+            <button
+              class="slider-btn next"
+              onclick="moveSlide(1)"
+              aria-label="Next"
+            >
+              &#10095;
+            </button>
+          </div>
         </div>
+      </section>
 
-    </div>
+      <!-- ===== G-BOARD SECTION ===== -->
+      <section class="section gboard-section">
+        <div class="container">
+          <h2 class="section-title">General Board</h2>
+          <p class="section-description">
+            Our dedicated committee leads and project managers
+          </p>
 
-    <!--Just a list of names, clickable brings to linked-in-->
-    <div class="Alumni List" id="alumniList">
+          <div class="members-grid" id="gboardGrid">
+            <!-- G-Board members will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>
 
-    </div>
+      <!-- ===== ACTIVE MEMBERS SECTION ===== -->
+      <section class="section members-section">
+        <div class="container">
+          <h2 class="section-title">Active Members</h2>
+          <p class="section-description">Our talented chapter members</p>
 
-    <script src="app.js"></script>
-</body>
+          <div class="members-grid" id="membersGrid">
+            <!-- Active members will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ALUMNI SECTION ===== -->
+      <section class="section alumni-section">
+        <div class="container">
+          <h2 class="section-title">Alumni</h2>
+          <p class="section-description">
+            Honoring our distinguished alumni network
+          </p>
+
+          <div class="alumni-list" id="alumniList">
+            <!-- Alumni will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="contact">
+      <div class="container footer-grid">
+        <div>
+          <h3>Contact</h3>
+          <p>
+            <a href="mailto:upittkappathetapi@gmail.com"
+              >upittkappathetapi@gmail.com</a
+            >
+          </p>
+        </div>
+        <div>
+          <h3>Follow Us</h3>
+          <p>
+            <a href="https://www.instagram.com/ktp_pitt/" target="_blank"
+              >Instagram</a
+            ><br />
+            <a
+              href="https://www.linkedin.com/company/kappa-theta-pi-pitt/"
+              target="_blank"
+              >LinkedIn</a
+            >
+          </p>
+        </div>
+        <div>
+          <h3>National</h3>
+          <p>
+            <a href="https://www.kappathetapi.org/" target="_blank"
+              >Visit Nationals</a
+            >
+          </p>
+        </div>
+      </div>
+      <p class="copyright">
+        © 2025 Kappa Theta Pi @ Pitt. All rights reserved.
+      </p>
+    </footer>
+
+    <script src="members.js"></script>
+  </body>
 </html>
