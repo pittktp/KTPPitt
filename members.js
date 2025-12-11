@@ -2,17 +2,15 @@
 // Uses server API to fetch data (API key is hidden on server)
 
 const CONFIG = {
-  // Server API endpoint
+  // Node API endpoint
   API_BASE_URL: window.location.origin,
-
-  // Sheet tab names
+  // Sheet tabs for ref
   SHEETS: {
     BOARD_CONTACTS: "Board Contacts",
     MEMBERS: "Majors & Basic Info",
   },
 };
 
-// Fetch data from server API instead of directly from Google Sheets
 async function fetchSheetData(sheetName) {
   const url = `${CONFIG.API_BASE_URL}/api/sheets/${encodeURIComponent(
     sheetName
@@ -29,7 +27,7 @@ async function fetchSheetData(sheetName) {
     const rows = data.values;
 
     if (!rows || rows.length === 0) {
-      console.warn(`No data found in sheet: ${sheetName}`);
+      //console.warn(`No data found in sheet: ${sheetName}`);
       return [];
     }
 
@@ -45,7 +43,7 @@ async function fetchSheetData(sheetName) {
       return obj;
     });
   } catch (error) {
-    console.error(`Error fetching data from ${sheetName}:`, error);
+    //console.error(`Error fetching data from ${sheetName}:`, error);
     return [];
   }
 }
@@ -66,7 +64,7 @@ async function fetchBoardData() {
     const rows = data.values;
 
     if (!rows || rows.length === 0) {
-      console.warn("No data found in Board Contacts sheet");
+      //console.warn("No data found in Board Contacts sheet");
       return { eboard: [], gboard: [] };
     }
 
@@ -86,7 +84,7 @@ async function fetchBoardData() {
     const gboard = [];
 
     if (eBoardStartIdx !== -1) {
-      const headerIdx = eBoardStartIdx + 2;
+      const headerIdx = eBoardStartIdx + 1;
       if (headerIdx < rows.length) {
         const headers = rows[headerIdx];
         const endIdx = gBoardStartIdx !== -1 ? gBoardStartIdx : rows.length;
@@ -110,7 +108,7 @@ async function fetchBoardData() {
     }
 
     if (gBoardStartIdx !== -1) {
-      const headerIdx = gBoardStartIdx + 2;
+      const headerIdx = gBoardStartIdx + 1;
       if (headerIdx < rows.length) {
         const headers = rows[headerIdx];
 
@@ -132,26 +130,39 @@ async function fetchBoardData() {
       }
     }
 
-    console.log(
-      `Fetched ${eboard.length} E-Board and ${gboard.length} G-Board members`
-    );
     return { eboard, gboard };
   } catch (error) {
-    console.error("Error fetching Board Contacts data:", error);
+    //console.error("Error fetching Board Contacts data:", error);
     return { eboard: [], gboard: [] };
   }
 }
 
 function createBoardCard(member) {
-  const linkedInUrl = member["LinkedIn Profiles"] || member.LinkedIn || "#";
-  const hasLinkedIn = linkedInUrl && linkedInUrl !== "#";
+  const linkedInUrl = member["LinkedIn Profiles"] || member.LinkedIn || "";
+  const hasLinkedIn = linkedInUrl && linkedInUrl !== "";
+  const major =
+    member.Major || member["Majors, Minors, and Certificates"] || "";
+
+  // Use headshot column first, then fall back to Photo column
+  const headshotUrl = member.headshot || member.Headshot || member.Photo || "";
+  const photo = convertGoogleDriveUrl(headshotUrl);
 
   return `
           <div class="profile-card">
               <div class="profile-image">
                   ${
-                    member.Photo
-                      ? `<img src="${member.Photo}" alt="${member.Name}">`
+                    photo
+                      ? `<img src="${photo}" alt="${member.Name}" 
+                              referrerpolicy="no-referrer"
+                              onerror="//console.error('Failed to load image for ${
+                                member.Name
+                              }:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              onload="//console.log('Successfully loaded image for ${
+                                member.Name
+                              }')">
+                         <div class="placeholder-image" style="display:none;">${
+                           member.Name?.charAt(0) || "?"
+                         }</div>`
                       : `<div class="placeholder-image">${
                           member.Name?.charAt(0) || "?"
                         }</div>`
@@ -160,21 +171,10 @@ function createBoardCard(member) {
               <div class="profile-info">
                   <h3>${member.Name || "Unknown"}</h3>
                   <p class="position">${member.Position || ""}</p>
-                  <p class="contact-info">
-                      ${
-                        member["Pitt Email"]
-                          ? `<a href="mailto:${member["Pitt Email"]}">${member["Pitt Email"]}</a>`
-                          : ""
-                      }
-                  </p>
-                  ${
-                    member["Office Hours"]
-                      ? `<p class="office-hours"><strong>Office Hours:</strong> ${member["Office Hours"]}</p>`
-                      : ""
-                  }
+                  ${major ? `<p class="member-major">${major}</p>` : ""}
                   ${
                     hasLinkedIn
-                      ? `<a href="${linkedInUrl}" target="_blank" class="linkedin-btn">LinkedIn →</a>`
+                      ? `<a href="${linkedInUrl}" target="_blank" class="member-linkedin">LinkedIn</a>`
                       : ""
                   }
               </div>
@@ -182,24 +182,68 @@ function createBoardCard(member) {
       `;
 }
 
+function convertGoogleDriveUrl(url) {
+  if (!url) return "";
+
+  // Check if it's already a direct link
+  if (
+    url.includes("drive.google.com/uc?") ||
+    url.includes("drive.google.com/thumbnail?")
+  ) {
+    return url;
+  }
+
+  let fileId = null;
+
+  // Format: https://drive.google.com/file/d/FILE_ID/view
+  let match = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (match) {
+    fileId = match[1];
+  }
+
+  // OR Format: https://drive.google.com/open?id=FILE_ID
+  if (!fileId) {
+    match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+    if (match) {
+      fileId = match[1];
+    }
+  }
+
+  if (fileId) {
+    // extract gdrive thumbnail
+    const directUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+    //console.log(`Converted Drive URL: ${url} -> ${directUrl}`);
+    return directUrl;
+  }
+
+  return url;
+}
+
 function createMemberCard(member) {
   const displayName =
     member["Preferred First Name"] || member.First || member.Name || "Unknown";
-  const fullName = member.Last
-    ? `${member.First || ""} ${member.Last}`.trim()
-    : displayName;
   const year = member.Year || "";
   const majors =
     member["Majors, Minors, and Certificates"] || member.Major || "";
   const linkedInUrl = member["LinkedIn Profiles"] || member.LinkedIn || "";
-  const photo = member.Photo || "";
+
+  const headshotUrl = member.headshot || member.Headshot || member.Photo || "";
+  const photo = convertGoogleDriveUrl(headshotUrl);
 
   return `
           <div class="member-card">
               <div class="member-image">
                   ${
                     photo
-                      ? `<img src="${photo}" alt="${displayName}">`
+                      ? `<img src="${photo}" alt="${displayName}" 
+                              referrerpolicy="no-referrer"
+                              onerror="//console.error('Failed to load image for ${displayName}:', this.src, with error: ${
+                          this.error
+                        }); this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              onload="//console.log('Successfully loaded image for ${displayName}')">
+                         <div class="placeholder-image" style="display:none;">${
+                           displayName.charAt(0) || "?"
+                         }</div>`
                       : `<div class="placeholder-image">${
                           displayName.charAt(0) || "?"
                         }</div>`
@@ -252,7 +296,7 @@ function renderEBoard(members) {
   const container = document.getElementById("boardSlider");
 
   if (!container) {
-    console.error("E-Board slider container not found");
+    //console.error("E-Board grid container not found");
     return;
   }
 
@@ -262,14 +306,14 @@ function renderEBoard(members) {
   }
 
   container.innerHTML = members.map(createBoardCard).join("");
-  console.log(`Rendered ${members.length} E-Board members`);
+  //console.log(`Rendered ${members.length} E-Board members`);
 }
 
 function renderGBoard(members) {
   const container = document.getElementById("gboardGrid");
 
   if (!container) {
-    console.error("G-Board container not found");
+    //console.error("G-Board container not found");
     return;
   }
 
@@ -278,21 +322,40 @@ function renderGBoard(members) {
     return;
   }
 
-  container.innerHTML = members.map(createMemberCard).join("");
-  console.log(`Rendered ${members.length} G-Board members`);
+  container.innerHTML = members.map(createBoardCard).join("");
+  //console.log(`Rendered ${members.length} G-Board members`);
 }
 
-function renderMembers(members) {
+function renderMembers(members, boardMembers = []) {
   const container = document.getElementById("membersGrid");
 
   if (!container) {
-    console.error("Members container not found");
+    //console.error("Members container not found");
     return;
   }
 
-  const currentMembers = members.filter(
-    (member) => member.Alumni === "Current" || !member.Alumni
+  const boardMemberNames = new Set(
+    boardMembers.map((m) => {
+      const firstName = m.First || m["Preferred First Name"] || "";
+      const lastName = m.Last || "";
+      const fullName = m.Name || `${firstName} ${lastName}`.trim();
+      return fullName.toLowerCase();
+    })
   );
+
+  const currentMembers = members.filter((member) => {
+    // Check if member is on the board
+    const memberFirstName =
+      member["Preferred First Name"] || member.First || "";
+    const memberLastName = member.Last || "";
+    const memberFullName =
+      member.Name || `${memberFirstName} ${memberLastName}`.trim();
+
+    const isOnBoard = boardMemberNames.has(memberFullName.toLowerCase());
+
+    // Only include if NOT on board
+    return !isOnBoard;
+  });
 
   if (currentMembers.length === 0) {
     container.innerHTML = '<p class="no-data">No members found</p>';
@@ -300,14 +363,14 @@ function renderMembers(members) {
   }
 
   container.innerHTML = currentMembers.map(createMemberCard).join("");
-  console.log(`Rendered ${currentMembers.length} members`);
+  //console.log(`Rendered ${currentMembers.length} members (${boardMembers.length} board members excluded)`);
 }
 
 function renderAlumni(alumni) {
   const container = document.getElementById("alumniList");
 
   if (!container) {
-    console.error("Alumni container not found");
+    //console.error("Alumni container not found");
     return;
   }
 
@@ -319,29 +382,62 @@ function renderAlumni(alumni) {
   }
 
   container.innerHTML = alumniMembers.map(createAlumniItem).join("");
-  console.log(`Rendered ${alumniMembers.length} alumni`);
+  //console.log(`Rendered ${alumniMembers.length} alumni`);
 }
 
-let currentSlideIndex = 0;
+// Helper function to match board members with their member data to get photos and additional info
+function mergeBoardWithMemberPhotos(boardMembers, membersData) {
+  return boardMembers.map((boardMember) => {
+    const matchingMember = membersData.find((member) => {
+      const boardName = boardMember.Name || "";
+      const boardParts = boardName.trim().split(/\s+/);
+      const boardFirstName = boardParts[0]?.toLowerCase() || "";
+      const boardLastName =
+        boardParts[boardParts.length - 1]?.toLowerCase() || "";
 
-function moveSlide(direction) {
-  const slider = document.getElementById("boardSlider");
-  const cards = slider.querySelectorAll(".profile-card");
+      const memberFirst = (member["Preferred First Name"] || member.First || "")
+        .trim()
+        .toLowerCase();
+      const memberLast = (member.Last || "").trim().toLowerCase();
 
-  if (cards.length === 0) return;
+      // Match if first and last names match
+      return boardFirstName === memberFirst && boardLastName === memberLast;
+    });
 
-  const cardWidth = cards[0].offsetWidth + 20;
-  currentSlideIndex += direction;
+    // If we found a match, merge
+    if (matchingMember) {
+      const boardPhoto =
+        boardMember.headshot || boardMember.Headshot || boardMember.Photo || "";
+      const memberPhoto =
+        matchingMember.headshot ||
+        matchingMember.Headshot ||
+        matchingMember.Photo ||
+        "";
 
-  if (currentSlideIndex < 0) currentSlideIndex = 0;
-  if (currentSlideIndex > cards.length - 1)
-    currentSlideIndex = cards.length - 1;
+      return {
+        ...boardMember,
+        Photo: memberPhoto || boardPhoto,
+        headshot: memberPhoto || boardPhoto,
+        Year: matchingMember.Year || "",
+        Major:
+          matchingMember["Majors, Minors, and Certificates"] ||
+          matchingMember.Major ||
+          "",
+        LinkedIn:
+          boardMember["LinkedIn Profiles"] ||
+          boardMember.LinkedIn ||
+          matchingMember["LinkedIn Profiles"] ||
+          matchingMember.LinkedIn ||
+          "",
+      };
+    }
 
-  slider.style.transform = `translateX(-${currentSlideIndex * cardWidth}px)`;
+    return boardMember;
+  });
 }
 
 async function loadAllMemberData() {
-  console.log("Loading member data from server API...");
+  //console.log("Loading member data from server API...");
 
   showLoadingState();
 
@@ -351,14 +447,26 @@ async function loadAllMemberData() {
       fetchSheetData(CONFIG.SHEETS.MEMBERS),
     ]);
 
-    renderEBoard(boardData.eboard);
-    renderGBoard(boardData.gboard);
-    renderMembers(membersData);
+    // Merge board data with member photos
+    const eBoardWithPhotos = mergeBoardWithMemberPhotos(
+      boardData.eboard,
+      membersData
+    );
+    const gBoardWithPhotos = mergeBoardWithMemberPhotos(
+      boardData.gboard,
+      membersData
+    );
+
+    renderEBoard(eBoardWithPhotos);
+    renderGBoard(gBoardWithPhotos);
+
+    const allBoardMembers = [...eBoardWithPhotos, ...gBoardWithPhotos];
+    renderMembers(membersData, allBoardMembers);
     renderAlumni(membersData);
 
-    console.log("All member data loaded successfully!");
+    //console.log("All member data loaded successfully!");
   } catch (error) {
-    console.error("Error loading member data:", error);
+    //console.error("Error loading member data:", error);
     showErrorState();
   }
 }

@@ -112,6 +112,21 @@
   margin-bottom: 8px;
 }
 
+.profile-info .member-year {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 5px;
+}
+
+.profile-info .member-major {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 12px;
+  min-height: 40px;
+}
+
 .profile-info .year-major {
   font-size: 0.9rem;
   color: #666;
@@ -139,7 +154,8 @@
   font-style: italic;
 }
 
-.linkedin-btn {
+.linkedin-btn,
+.profile-info .member-linkedin {
   display: inline-block;
   padding: 8px 20px;
   background: #0077b5;
@@ -151,7 +167,8 @@
   transition: background 0.3s ease;
 }
 
-.linkedin-btn:hover {
+.linkedin-btn:hover,
+.profile-info .member-linkedin:hover {
   background: #005885;
 }
 
