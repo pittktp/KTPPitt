@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Catch "no events" case
       if (events.length === 0) {
         container.innerHTML =
-          '<p style="text-align:center; color:#666;">No rush events scheduled yet. Check back soon!</p>';
+          '<p style="grid-column: 1 / -1; text-align:center; color:#666;">No rush events scheduled yet. Check back soon!</p>';
         return;
       }
 
