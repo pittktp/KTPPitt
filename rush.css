@@ -35,10 +35,14 @@ body {
   flex: 1;
 }
 
+.hero::before,
+.hero::after {
+  display: none;
+}
+
 .hero .hero-content {
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 5rem;
   padding: 0 24px;
 }
 

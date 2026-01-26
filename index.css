@@ -29,7 +29,10 @@ header {
   /* transparent at top */
   border-bottom: none;
   padding: 20px 40px;
-  transition: background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    padding 0.3s ease;
 }
 
 header.scrolled {
@@ -80,7 +83,9 @@ header.scrolled {
   font-size: 1rem;
   font-weight: 500;
   color: #222;
-  transition: color 0.3s ease, border-bottom 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-bottom 0.3s ease;
 }
 
 .nav-links a:hover,
@@ -92,29 +97,230 @@ header.scrolled {
 
 /* === Hero === */
 .hero {
-  background: url("images/hero-image.png") center/cover no-repeat;
-  height: 550px;
+  background: #fffdf9;
+  min-height: calc(100vh - 250px);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   text-align: center;
   padding: 0 20px;
-  margin-top: -80px;
-  /* pulls hero up under transparent header */
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(
+    150px,
+    calc((100vw - min(800px, calc(100vw - 40px))) / 2 + 100px),
+    500px
+  );
+  height: 100%;
+  background: #315ca9;
+  clip-path: polygon(0 0, 100% 0, 66% 100%, 0 100%);
+  z-index: 0;
+  opacity: 0.15;
 }
 
 .hero::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: rgba(255, 253, 249, 0.6);
+  right: 0;
+  top: 0;
+  width: clamp(
+    150px,
+    calc((100vw - min(800px, calc(100vw - 40px))) / 2 + 100px),
+    500px
+  );
+  height: 100%;
+  background: #006644;
+  clip-path: polygon(33% 0, 100% 0, 100% 100%, 0 100%);
+  z-index: 0;
+  opacity: 0.15;
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   max-width: 800px;
+  background: #fffdf9;
+  padding: 48px 40px;
+  border-radius: 24px;
+}
+
+/* === Playing Cards === */
+.playing-cards {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.playing-card {
+  position: absolute;
+  width: 180px;
+  height: 240px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  animation: float 6s ease-in-out infinite;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.playing-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Card Positions - Scattered around the hero */
+.card-1 {
+  top: 8%;
+  left: 5%;
+  transform: rotate(-12deg);
+  animation-delay: 0s;
+}
+
+.card-2 {
+  top: 15%;
+  left: 15%;
+  transform: rotate(8deg);
+  animation-delay: 0.5s;
+  width: 160px;
+  height: 210px;
+}
+
+.card-3 {
+  top: 5%;
+  right: 12%;
+  transform: rotate(15deg);
+  animation-delay: 1s;
+}
+
+.card-4 {
+  top: 45%;
+  left: 3%;
+  transform: rotate(-8deg);
+  animation-delay: 1.5s;
+  width: 170px;
+  height: 225px;
+}
+
+.card-5 {
+  bottom: 12%;
+  left: 8%;
+  transform: rotate(10deg);
+  animation-delay: 2s;
+}
+
+.card-6 {
+  top: 50%;
+  right: 5%;
+  transform: rotate(-15deg);
+  animation-delay: 2.5s;
+}
+
+.card-7 {
+  bottom: 15%;
+  right: 10%;
+  transform: rotate(12deg);
+  animation-delay: 3s;
+  width: 165px;
+  height: 218px;
+}
+
+.card-8 {
+  top: 25%;
+  right: 5%;
+  transform: rotate(-10deg);
+  animation-delay: 3.5s;
+  width: 155px;
+  height: 205px;
+  opacity: 0.8;
+}
+
+.card-9 {
+  bottom: 25%;
+  left: 18%;
+  transform: rotate(18deg);
+  animation-delay: 4s;
+  width: 158px;
+  height: 208px;
+  opacity: 0.85;
+}
+
+.card-10 {
+  top: 35%;
+  left: 12%;
+  transform: rotate(-5deg);
+  animation-delay: 4.5s;
+  width: 162px;
+  height: 214px;
+  opacity: 0.9;
+}
+
+/* Float Animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--rotate));
+  }
+  50% {
+    transform: translateY(-15px) rotate(var(--rotate));
+  }
+}
+
+.card-1 {
+  --rotate: -12deg;
+}
+.card-2 {
+  --rotate: 8deg;
+}
+.card-3 {
+  --rotate: 15deg;
+}
+.card-4 {
+  --rotate: -8deg;
+}
+.card-5 {
+  --rotate: 10deg;
+}
+.card-6 {
+  --rotate: -15deg;
+}
+.card-7 {
+  --rotate: 12deg;
+}
+.card-8 {
+  --rotate: -10deg;
+}
+.card-9 {
+  --rotate: 18deg;
+}
+.card-10 {
+  --rotate: -5deg;
+}
+
+/* Hover effect */
+.playing-card:hover {
+  transform: scale(1.05) rotate(0deg) !important;
+  z-index: 5;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.2),
+    0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .hero h1 {
@@ -137,7 +343,9 @@ header.scrolled {
   border-radius: 50px;
   font-weight: 600;
   font-size: 1rem;
-  transition: background 0.2s, transform 0.2s;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 
 .hero-button:hover {
@@ -185,7 +393,9 @@ header.scrolled {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
   padding: 20px;
   text-align: center;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .card:hover {
@@ -225,7 +435,9 @@ header.scrolled {
   border-radius: 16px;
   transform: skew(-3deg);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .rush-card:hover {
@@ -298,6 +510,101 @@ footer .copyright {
   transition: 0.3s;
 }
 
+@media (max-width: 1024px) {
+  .playing-card {
+    width: 140px;
+    height: 185px;
+  }
+
+  .card-2 {
+    width: 130px;
+    height: 172px;
+  }
+
+  .card-4 {
+    width: 135px;
+    height: 178px;
+  }
+
+  .card-7 {
+    width: 132px;
+    height: 175px;
+  }
+
+  .card-8,
+  .card-9,
+  .card-10 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .playing-card {
+    width: 110px;
+    height: 145px;
+    opacity: 0.7;
+  }
+
+  .card-2,
+  .card-4,
+  .card-7 {
+    width: 110px;
+    height: 145px;
+  }
+
+  .card-5,
+  .card-6,
+  .card-7 {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .hero::before,
+  .hero::after {
+    display: none;
+  }
+
+  .playing-cards {
+    display: none;
+  }
+
+  .hero-content {
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 24px 20px;
+  }
+
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: #315ca9;
+    clip-path: polygon(0 0, 100% 0, 100% 60%, 0 100%);
+    opacity: 0.12;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: #006644;
+    clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
+    opacity: 0.12;
+    z-index: 999;
+    pointer-events: none;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-links {
     position: absolute;
@@ -330,7 +637,17 @@ footer .copyright {
   }
 
   .hero {
-    height: 400px;
+    min-height: calc(100vh - 200px);
+  }
+
+  .hero::before,
+  .hero::after {
+    width: clamp(
+      80px,
+      calc((100vw - min(800px, 100vw - 40px)) / 2 + 50px),
+      150px
+    );
+    opacity: 0.1;
   }
 
   .grid,

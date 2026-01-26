@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -39,27 +39,15 @@
         </nav>
       </div>
     </header>
-
-    <!-- ===== HERO ===== -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>About Us</h1>
-        <p>Discover our story, values, and mission.</p>
-      </div>
-    </section>
-
-    <!-- ===== TABS ===== -->
-    <nav class="tab-container" aria-label="Page sections">
-      <a href="#welcome" class="tab active">President's Welcome</a>
-      <a href="#pillars" class="tab">Our Pillars</a>
-      <a href="#history" class="tab">History</a>
-      <a href="#dei" class="tab">DEI Commitment</a>
-    </nav>
-
-    <!-- ===== CONTENT ===== -->
-    <main id="tab-content" class="container">
-      <section id="welcome" class="content active">
-        <h2>President's Welcome</h2>
+    <div class="hero-content">
+      <h1>About Us</h1>
+      <p>Discover our story, values, and mission at Kappa Theta Pi</p>
+    </div>
+    <!-- ===== BENTO GRID LAYOUT ===== -->
+    <main class="bento-container">
+      <!-- President's Welcome Box -->
+      <section id="welcome" class="bento-box bento-welcome">
+        <h2>From The President</h2>
 
         <div class="president-welcome">
           <div class="president-photo">
@@ -74,42 +62,15 @@
 
           <div class="president-text">
             <p>
-              Welcome to the Alpha Chapter of Kappa Theta Pi, Michigan's premier
-              professional technology fraternity. On behalf of our chapter, I am
-              excited to welcome you to our fraternity's website, where you can
-              catch a glimpse of the passion and excellence that our chapter
-              celebrates.
-            </p>
+              Welcome to the Beta Chapter of Kappa Theta Pi, Pitt's first co-ed professional technology fraternity!</p>
 
-            <p>
-              Kappa Theta Pi offers brothers the support to be extraordinary
-              during their time at Michigan with resources centered around five
-              pillars: professional development, alumni connections, social
-              growth, technological advancement, and academic support. From
-              project teams and study groups to professional development
-              workshops and hackathons / design jams, we foster a culture of
-              growth encouraging members to pursue their tech passions. Our
-              chapter values diversity, with brothers contributing unique
-              experiences and excelling as student leaders. We celebrate our
-              diverse brotherhood, welcoming all united by a passion for
-              technology.
-            </p>
+<p>Kappa Theta Pi offers growth and exploration in all aspects of college life. Whether it's a tech talk from a local company, alumni networking, study hours, or group ski trips, KTP offers the resources and opportunities for those with a love of technology to strive to be their best. We also accept all undergraduate students regardless of major or year, as we stand for inclusivity and diversity, no matter the stage in your professional journey.</p>
 
-            <p>
-              Reflecting on my time at Michigan, KTP has been the most impactful
-              part of my college experience. I have witnessed the growth of some
-              of Michigan's most brilliant and ambitious professionals, seeing
-              first-hand the incredible things they do. More importantly, I have
-              been introduced to lifelong friends and connections who serve as a
-              constant source of inspiration and always support me to be my full
-              and best self. I invite you to explore our website and learn more
-              about our brotherhood.
-            </p>
+<p>Throughout my time at Pitt, KTP has shaped my college experience in the best ways possible. Without it, I would have never met some of my closest friends and classmates, nor would I have made the connections and development that has pushed me to be the best I can be. With that said, I encourage you to explore our website and learn more about what our brotherhood has to offer!</p>
 
-            <p>
-              With love,<br />
-              Helen Liang<br />
-              President, 2025
+<p>Sincerely,</p>
+<p>Connor Reger<br>
+President, 2026</p>
             </p>
           </div>
         </div>
@@ -131,7 +92,8 @@
         </div>
       </section>
 
-      <section id="pillars" class="content">
+      <!-- Our Pillars Box -->
+      <section id="pillars" class="bento-box bento-pillars">
         <h2>Our Pillars</h2>
         <p>
           We stand on five main pillars that guide our chapter and help members
@@ -211,7 +173,8 @@
         </div>
       </section>
 
-      <section id="history" class="content">
+      <!-- History Box -->
+      <section id="history" class="bento-box bento-history">
         <h2>History</h2>
         <div class="president-welcome">
           <div class="president-photo">
@@ -237,7 +200,8 @@
         </div>
       </section>
 
-      <section id="dei" class="content">
+      <!-- DEI Commitment Box -->
+      <section id="dei" class="bento-box bento-dei">
         <h2>DEI Commitment</h2>
         <div class="president-welcome">
           <div class="president-photo">
@@ -304,7 +268,11 @@
         </div>
       </div>
       <p class="copyright">
-        © 2025 Kappa Theta Pi @ Pitt. All rights reserved.
+        ©
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Kappa Theta Pi @ Pitt. All rights reserved.
       </p>
     </footer>
 
