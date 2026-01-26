@@ -1,11 +1,49 @@
-// Navbar toggle (mobile menu) - guard for element presence
+// === Sticky Navbar Shadow ===
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 20) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
+
+// === Mobile Menu Toggle ===
 const menuToggle = document.getElementById("mobile-menu");
 const navLinks = document.querySelector(".nav-links");
+const navOverlay = document.getElementById("nav-overlay");
+
+function toggleMenu() {
+  navLinks.classList.toggle("active");
+  menuToggle.classList.toggle("open");
+  navOverlay.classList.toggle("active");
+  
+  // Prevent body scroll when menu is open
+  if (navLinks.classList.contains("active")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+}
 
 if (menuToggle) {
-  menuToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("active");
-    menuToggle.classList.toggle("open");
+  menuToggle.addEventListener("click", toggleMenu);
+}
+
+// Close menu when clicking overlay
+if (navOverlay) {
+  navOverlay.addEventListener("click", toggleMenu);
+}
+
+// Close menu when clicking a nav link
+if (navLinks) {
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      if (navLinks.classList.contains("active")) {
+        toggleMenu();
+      }
+    });
   });
 }
 

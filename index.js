@@ -16,10 +16,33 @@ const navLinks = document.querySelectorAll(".nav-links a");
 // === Mobile Menu Toggle ===
 const mobileMenu = document.getElementById("mobile-menu");
 const navLinksContainer = document.querySelector(".nav-links");
+const navOverlay = document.getElementById("nav-overlay");
 
-mobileMenu.addEventListener("click", () => {
+function toggleMenu() {
   navLinksContainer.classList.toggle("active");
   mobileMenu.classList.toggle("open");
+  navOverlay.classList.toggle("active");
+  
+  // Prevent body scroll when menu is open
+  if (navLinksContainer.classList.contains("active")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
+}
+
+mobileMenu.addEventListener("click", toggleMenu);
+
+// Close menu when clicking overlay
+navOverlay.addEventListener("click", toggleMenu);
+
+// Close menu when clicking a nav link
+navLinksContainer.querySelectorAll("a").forEach((link) => {
+  link.addEventListener("click", () => {
+    if (navLinksContainer.classList.contains("active")) {
+      toggleMenu();
+    }
+  });
 });
 
 window.addEventListener("scroll", () => {
