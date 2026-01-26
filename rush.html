@@ -1,76 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rush | Kappa Theta Pi - Pitt</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="about.css">
-    <link rel="stylesheet" href="rush.css">
-    <link href="https://api.fontshare.com/v2/css?f[]=geist@1&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#ffffff">
-</head>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="about.css" />
+    <link rel="stylesheet" href="rush.css" />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=geist@1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
 
-<!-- ===== NAVBAR ===== -->
-<header>
-    <div class="nav-container">
+  <body>
+    <!-- ===== NAVBAR ===== -->
+    <header>
+      <div class="nav-container">
         <div class="logo">
-            <a href="index.html">
-                <img src="/images/logo.png" alt="KTP Logo">
-            </a>
+          <a href="index.html">
+            <img src="/images/logo.png" alt="KTP Logo" />
+          </a>
         </div>
         <nav class="nav-center">
-            <div class="menu-toggle" id="mobile-menu">
-                <span></span><span></span><span></span><span></span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="members.html">Members</a></li>
-                <li><a href="rush.html" class="active">Rush</a></li>
-                <li><a href="mailto:upittkappathetapi@gmail.com">Contact</a></li>
-            </ul>
+          <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <ul class="nav-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="members.html">Members</a></li>
+            <li><a href="rush.html" class="active">Rush</a></li>
+            <li><a href="mailto:upittkappathetapi@gmail.com">Contact</a></li>
+          </ul>
         </nav>
-    </div>
-</header>
+      </div>
+    </header>
 
-<!-- HERO (uses same styles as about page) -->
-<section class="hero">
-    <div class="hero-content">
+    <!-- HERO (uses same styles as about page) -->
+    <section class="hero">
+      <div class="hero-content">
         <h1>Learn About Joining KTP!</h1>
         <p id="rush-subtitle">Join us for our Rush!</p>
+        <p>
+          Remember: You must attend at least <strong>2</strong> rush events to
+          be considered for an interview.
+        </p>
         <div id="schedule-cards" class="schedule-cards" aria-live="polite">
-            <!-- schedule cards will be rendered here by rush.js -->
+          <!-- schedule cards will be rendered here by rush.js -->
         </div>
-    </div>
-</section>
-</header>
+      </div>
+    </section>
 
-<!-- ===== FOOTER ===== -->
-<footer id="contact">
-    <div class="container footer-grid">
+    <!-- ===== FOOTER ===== -->
+    <footer id="contact">
+      <div class="container footer-grid">
         <div>
-            <h3>Contact</h3>
-            <p><a href="mailto:upittkappathetapi@gmail.com">upittkappathetapi@gmail.com</a></p>
-        </div>
-        <div>
-            <h3>Follow Us</h3>
-            <p>
-                <a href="https://www.instagram.com/ktp_pitt/" target="_blank">Instagram</a><br>
-                <a href="https://www.linkedin.com/company/kappa-theta-pi-pitt/" target="_blank">LinkedIn</a>
-            </p>
+          <h3>Contact</h3>
+          <p>
+            <a href="mailto:upittkappathetapi@gmail.com"
+              >upittkappathetapi@gmail.com</a
+            >
+          </p>
         </div>
         <div>
-            <h3>National</h3>
-            <p><a href="https://www.kappathetapi.org/" target="_blank">Visit Nationals</a></p>
+          <h3>Follow Us</h3>
+          <p>
+            <a href="https://www.instagram.com/ktp_pitt/" target="_blank"
+              >Instagram</a
+            ><br />
+            <a
+              href="https://www.linkedin.com/company/kappa-theta-pi-pitt/"
+              target="_blank"
+              >LinkedIn</a
+            >
+          </p>
         </div>
-    </div>
-    <p class="copyright">© 2025 Kappa Theta Pi @ Pitt. All rights reserved.</p>
-</footer>
-</body>
+        <div>
+          <h3>National</h3>
+          <p>
+            <a href="https://www.kappathetapi.org/" target="_blank"
+              >Visit Nationals</a
+            >
+          </p>
+        </div>
+      </div>
+      <p class="copyright">
+        © 2025 Kappa Theta Pi @ Pitt. All rights reserved.
+      </p>
+    </footer>
+  </body>
 
-<script src="rush.js"></script>
-<script src="about.js"></script>
-
+  <script src="rush.js"></script>
+  <script src="about.js"></script>
 </html>

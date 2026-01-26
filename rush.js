@@ -76,9 +76,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const card = document.createElement("article");
         card.className = "schedule-card";
         card.setAttribute("data-id", ev.id);
-        card.setAttribute("tabindex", "0");
 
+        const imageIndex = (events.indexOf(ev) % 6) + 1;
+        const placeholderImage = `/images/grouppic-${imageIndex}.jpeg`;
+        
         card.innerHTML = `
+          <img src="${placeholderImage}" alt="${ev.title}" class="card-image" loading="lazy">
           <div class="card-head">
             <h3 class="event-title">${ev.title}</h3>
             <div class="event-datetime">${ev.datetime}</div>
@@ -92,15 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
           </div>
         `;
-
-        // Toggle card expansion onclick
-        card.addEventListener("click", () => {
-          const isOpen = card.classList.contains("open");
-          document
-            .querySelectorAll(".schedule-card.open")
-            .forEach((c) => c.classList.remove("open"));
-          if (!isOpen) card.classList.add("open");
-        });
 
         container.appendChild(card);
       });
