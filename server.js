@@ -6,12 +6,16 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Determine the root directory (works both locally and on Vercel)
+// On Vercel, files are in the project root, __dirname points to where server.js is
+const ROOT_DIR = __dirname;
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Serve static files with proper configuration for Vercel
-app.use(express.static(path.join(__dirname), {
+app.use(express.static(ROOT_DIR, {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.css')) {
       res.setHeader('Content-Type', 'text/css');
@@ -22,7 +26,7 @@ app.use(express.static(path.join(__dirname), {
 }));
 
 // Webserver for images
-app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/images", express.static(path.join(ROOT_DIR, "images")));
 
 // api route for google sheets (yipppee!! yipppee!! yipppee!!)
 app.get("/api/sheets/:sheetName", async (req, res) => {
@@ -59,29 +63,31 @@ app.get("/api/sheets/:sheetName", async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(ROOT_DIR, "index.html"));
 });
 
 app.get("/members.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "members.html"));
+  res.sendFile(path.join(ROOT_DIR, "members.html"));
 });
 
 app.get("/about.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "about.html"));
+  res.sendFile(path.join(ROOT_DIR, "about.html"));
 });
 
 app.get("/rush.html", (req, res) => {
-  res.sendFile(path.join(__dirname, "rush.html"));
+  res.sendFile(path.join(ROOT_DIR, "rush.html"));
 });
 
 // 404 just serves index
 app.use((req, res) => {
-  res.status(404).sendFile(path.join(__dirname, "index.html"));
+  res.status(404).sendFile(path.join(ROOT_DIR, "index.html"));
 });
 
-// TODO: Refactor listener before deployment
-app.listen(PORT, () => {
-  console.log(`KTP Website server running on http://localhost:${PORT}`);
-});
+// Only start server if not in Vercel serverless environment
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`KTP Website server running on http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
