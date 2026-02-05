@@ -7,10 +7,15 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .section {
   padding: 60px 0;
+  display: flex;
+  align-items: center;
 }
 
 .section-title,
@@ -29,6 +34,45 @@
   color: #555;
   font-size: 1.1rem;
   margin: 0 0 40px;
+}
+
+.section-button {
+  padding-left: 70px; 
+  padding-right: 70px;
+  background-color:#003366;
+  color:#f9f9f9;
+  height: 60px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 50px/70%;
+  border-color: transparent;
+}
+
+.section-button:hover {
+  padding-left: 70px; 
+  padding-right: 70px;
+  background-color:#caddf0;
+  color:#003366;
+  height: 60px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 50px/70%;
+  border-color: transparent;
+}
+
+.section-button:focus {
+  padding-left: 70px; 
+  padding-right: 70px;
+  background-color:#b1c9e0;
+  color:#003366;
+  height: 60px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 50px/70%;
+  border-color: transparent;
 }
 
 .eboard-section {
@@ -371,6 +415,22 @@
 .loading::after {
   content: "...";
   animation: loading 1.5s infinite;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: #003366;
+}
+
+h2 {
+  text-align: center;
+  justify-content: center;
+  font-weight: 650;
+  color: #003366;
+  font-size: 40px;
+  padding-top: 50px;
 }
 
 @keyframes loading {
