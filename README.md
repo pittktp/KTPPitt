@@ -52,9 +52,10 @@ This is a dynamic website built with vanilla JavaScript, HTML, and CSS, featurin
 
 ### 👥 Members Page (`members.html`)
 
-- **Executive Board (E-Board)** - Horizontal scrolling carousel
-- **General Board (G-Board)** - Grid layout
-- **Active Members** - Grid of all current members (excluding board)
+- **Member Grid**: Buttons on the screen will allow users to navigate between each member grid
+  - **Executive Board (E-Board)** - Grid layout
+  - **General Board (G-Board)** - Grid layout
+  - **Active Members** - Grid of all current members (excluding board)
 - **Alumni Section** - List view with graduation years
 - **Dynamic Data**: All member information fetched from Google Sheets API
 - Photo support with Google Drive integration
