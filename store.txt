@@ -1,0 +1,63 @@
+<!-- ===== E-BOARD SECTION ===== -->
+      <section class="section eboard-section">
+        <div class="container">
+          <h1 class="section-title">Executive Board</h1>
+          <p class="section-description">
+            Meet our leadership team for the 2024-2025 academic year
+          </p>
+
+          <div class="members-grid" id="boardSlider">
+            <!-- Tile Style -->
+
+            <!-- E-Board members will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== G-BOARD SECTION ===== -->
+      <section class="section gboard-section">
+        <div class="container">
+          <h2 class="section-title">General Board</h2>
+          <p class="section-description">
+            Our dedicated committee leads and project managers
+          </p>
+
+          <div class="members-grid" id="gboardGrid">
+            <!-- Tile Style -->
+
+            <!-- G-Board members will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ACTIVE MEMBERS SECTION ===== -->
+      <section class="section members-section">
+        <div class="container">
+          <h2 class="section-title">Active Members</h2>
+          <p class="section-description">
+            Our talented chapter members
+          </p>
+
+          <div class="members-grid" id="membersGrid">
+            <!-- Tile Style -->
+            
+            <!-- Active members will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ALUMNI SECTION ===== -->
+      <section class="section alumni-section">
+        <div class="container">
+          <h2 class="section-title">Alumni</h2>
+          <p class="section-description">
+            Skilled professionals who graduated as a part of Kappa Theta Pi at the University of Pittsburgh
+          </p>
+
+          <div class="alumni-grid" id="alumniGrid">
+            <!-- Tile Style -->
+            
+            <!-- Alumni will be loaded here dynamically -->
+          </div>
+        </div>
+      </section>

@@ -3,14 +3,20 @@
   min-height: calc(100vh - 300px);
 }
 
+/* Structure */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .section {
   padding: 60px 0;
+  display: flex;
+  align-items: center;
 }
 
 .section-title,
@@ -29,6 +35,82 @@
   color: #555;
   font-size: 1.1rem;
   margin: 0 0 40px;
+}
+
+.section-button, .section-button:hover,  
+.section-button:focus {
+  padding-left: 70px; 
+  padding-right: 70px;
+  height: 60px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 50px/70%;
+  border-color: transparent;
+}
+
+.section-button{
+  background-color:#003366;
+  color:#f9f9f9;
+}
+
+.section-button:hover {
+  background-color:#caddf0;
+  color:#003366;
+}
+
+.section-button:focus {
+  background-color:#b1c9e0;
+  color:#003366;
+}
+
+/* Runner */
+.runner {
+  background: #fffdf9;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  padding: 0 20px;
+  overflow: hidden;
+  border-bottom: 4px dotted #003366;
+}
+
+.runner::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  background: #00523d; /* Darker green */
+  clip-path: path('M 0,60 Q 150,20 300,60 T 600,60 T 900,60 T 1200,60 T 1500,60 T 1800,60 L 1800,120 L 0,120 Z');
+  opacity: 0.1;
+  z-index: 0;
+}
+
+.runner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background: #006644; /* Medium green */
+  clip-path: path('M 0,50 Q 200,10 400,50 T 800,50 T 1200,50 T 1600,50 T 2000,50 L 2000,100 L 0,100 Z');
+  opacity: 0.12;
+  z-index: 1;
+}
+
+.runner h1 {
+  position: relative;
+  z-index: 10;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 15px;
+  color: #003366;
 }
 
 .eboard-section {
@@ -371,6 +453,15 @@
 .loading::after {
   content: "...";
   animation: loading 1.5s infinite;
+}
+
+h2 {
+  text-align: center;
+  justify-content: center;
+  font-weight: 650;
+  color: #003366;
+  font-size: 40px;
+  padding-top: 50px;
 }
 
 @keyframes loading {

@@ -1,6 +1,20 @@
 // Client-side JavaScript for Members Page
 // Uses server API to fetch data (API key is hidden on server)
 
+// === Members Button Functionality ===
+document.getElementById("executive-button").addEventListener("click", function() {
+  document.getElementById("members-label").innerText = "Executive Board";
+});
+
+document.getElementById("general-button").addEventListener("click", function() {
+  document.getElementById("members-label").innerText = "General Board";
+});
+
+document.getElementById("actives-button").addEventListener("click", function() {
+  document.getElementById("members-label").innerText = "Active Members";
+});
+
+
 // === Sticky Navbar Shadow ===
 const header = document.querySelector("header");
 

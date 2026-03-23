@@ -47,46 +47,33 @@
     <!-- Mobile Menu Overlay -->
     <div class="nav-overlay" id="nav-overlay"></div>
 
+    <div class="runner">
+      <h1>Our Tech-Loving Community</h1>
+    </div>
+
+    <!-- Content -->
     <main class="members-page">
-      <!-- ===== E-BOARD SECTION ===== -->
-      <section class="section eboard-section">
-        <div class="container">
-          <h1 class="section-title">Executive Board</h1>
-          <p class="section-description">
-            Meet our leadership team for the 2024-2025 academic year
-          </p>
+      <section class="current-members">
+        <div class="container section-buttons" style="width: 1000px;">
+          <button class="section-button" id="executive-button">E-Board</button>
+          <button class="section-button" id="general-button">G-Board</button>
+          <button class="section-button" id="actives-button">Actives</button>
+        </div>
 
-          <div class="members-grid" id="boardSlider">
-            <!-- E-Board members will be loaded here dynamically -->
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+          <h2 id="members-label">Executive Board</h2>
+          <div class="members-grid" id="members-grid">
+            <!-- DYNAMICALLY LOAD PEOPLE BASED ON WHICH FILTER IS SELECTED -->
           </div>
         </div>
+
       </section>
 
-      <!-- ===== G-BOARD SECTION ===== -->
-      <section class="section gboard-section">
-        <div class="container">
-          <h2 class="section-title">General Board</h2>
-          <p class="section-description">
-            Our dedicated committee leads and project managers
-          </p>
+      <section class="alumni-members">
+          <h2>Our Talented Alumni</h2>
 
-          <div class="members-grid" id="gboardGrid">
-            <!-- G-Board members will be loaded here dynamically -->
-          </div>
-        </div>
       </section>
-
-      <!-- ===== ACTIVE MEMBERS SECTION ===== -->
-      <section class="section members-section">
-        <div class="container">
-          <h2 class="section-title">Active Members</h2>
-          <p class="section-description">Our talented chapter members</p>
-
-          <div class="members-grid" id="membersGrid">
-            <!-- Active members will be loaded here dynamically -->
-          </div>
-        </div>
-      </section>
+      
     </main>
 
     <!-- ===== FOOTER ===== -->
