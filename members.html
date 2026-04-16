@@ -61,9 +61,36 @@
         </div>
 
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
-          <h2 id="members-label">Executive Board</h2>
+          <h2 id="members-label">Executive Board</h2> <!-- Defaul Select E-Board -->
           <div class="members-grid" id="members-grid">
-            <!-- DYNAMICALLY LOAD PEOPLE BASED ON WHICH FILTER IS SELECTED -->
+            <!-- DYNAMICALLY LOAD PEOPLE BASED ON WHICH FILTER IS SELECTED -->  
+
+
+            <!-- Board member Card -- ugly, stupid, and worse than the normal member card :p -->
+            <div class="profile-card">
+              <div class="profile-image">
+                  ${
+                    photo
+                      ? `<img src="https://media.licdn.com/dms/image/v2/D5603AQGusOZCpnpSSg/profile-displayphoto-scale_200_200/B56ZnjYcszKEAY-/0/1760456462487?e=2147483647&v=beta&t=Zk8p8TTiBvHCiUX4Qg2KAY1GeuLYcBWZmNIPlB8kCHE" alt="Margo-Brown" 
+                              referrerpolicy="no-referrer"
+                              onerror="//console.error('Failed to load image for ${member.Name}:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                              onload="//console.log('Successfully loaded image for ${member.Name}')">
+                         <div class="placeholder-image" style="display:none;">${
+                           member.Name?.charAt(0) || "?"
+                         }</div>`
+                      : `<div class="placeholder-image">${
+                          member.Name?.charAt(0) || "?"
+                        }</div>`
+                  }
+              </div>
+              <div class="profile-info">
+                  <h3>Margo Brown</h3>
+                  <p class="position">Alumni Chair + Dev Team lol</p>
+                  <p class="member-major">Computer Science</p>
+                  <a href="www.linkedin.com/in/margo-brown0" class="member-linkedin">LinkedIn</a>
+              </div>
+          </div>
+
           </div>
         </div>
 
@@ -71,6 +98,14 @@
 
       <section class="alumni-members">
           <h2>Our Talented Alumni</h2>
+
+          <!-- Alumni Card -->
+          <div class="alumni-item">
+              <a href="https://www.linkedin.com/in/naomi-brown-89a2852b3/" target="_blank" class="alumni-link">
+                  <span class="alumni-name">Naomi Brown</span>
+                  <span class="alumni-details">Kinesiology 2026</span>
+              </a>
+          </div>
 
       </section>
       
