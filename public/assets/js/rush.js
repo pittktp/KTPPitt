@@ -1,53 +1,10 @@
-// === Sticky Navbar Shadow ===
-const header = document.querySelector("header");
-
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 20) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-
-// === Mobile Menu Toggle ===
-const menuToggle = document.getElementById("mobile-menu");
-const navLinks = document.querySelector(".nav-links");
-const navOverlay = document.getElementById("nav-overlay");
-
-function toggleMenu() {
-  navLinks.classList.toggle("active");
-  menuToggle.classList.toggle("open");
-  navOverlay.classList.toggle("active");
-  
-  // Prevent body scroll when menu is open
-  if (navLinks.classList.contains("active")) {
-    document.body.style.overflow = "hidden";
-  } else {
-    document.body.style.overflow = "";
-  }
+function escapeHtml(value) {
+  const element = document.createElement("div");
+  element.textContent = value;
+  return element.innerHTML;
 }
 
-if (menuToggle) {
-  menuToggle.addEventListener("click", toggleMenu);
-}
-
-// Close menu when clicking overlay
-if (navOverlay) {
-  navOverlay.addEventListener("click", toggleMenu);
-}
-
-// Close menu when clicking a nav link
-if (navLinks) {
-  navLinks.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (navLinks.classList.contains("active")) {
-        toggleMenu();
-      }
-    });
-  });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   async function loadSchedule() {
     const container = document.getElementById("schedule-cards");
     if (!container) return;
@@ -90,8 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
             id: `event-${events.length + 1}`,
             title: eventName,
             datetime: `${date}, ${time}`,
-            location: location,
-            description: description,
+            location,
+            description,
           });
         }
 
@@ -106,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
             id: `event-${events.length + 1}`,
             title: eventName,
             datetime: `${date}, ${time}`,
-            location: location,
-            description: description,
+            location,
+            description,
           });
         }
       }
@@ -121,25 +78,25 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       // Render event cards
-      events.forEach((ev) => {
+      events.forEach((event, index) => {
         const card = document.createElement("article");
         card.className = "schedule-card";
-        card.setAttribute("data-id", ev.id);
+        card.dataset.id = event.id;
 
-        const imageIndex = (events.indexOf(ev) % 6) + 1;
-        const placeholderImage = `/images/grouppic-${imageIndex}.jpeg`;
+        const imageIndex = (index % 6) + 1;
+        const placeholderImage = `/assets/images/grouppic-${imageIndex}.jpeg`;
         
         card.innerHTML = `
-          <img src="${placeholderImage}" alt="${ev.title}" class="card-image" loading="lazy">
+          <img src="${placeholderImage}" alt="${escapeHtml(event.title)}" class="card-image" loading="lazy">
           <div class="card-head">
-            <h3 class="event-title">${ev.title}</h3>
-            <div class="event-datetime">${ev.datetime}</div>
-            <div class="event-location">${ev.location}</div>
+            <h3 class="event-title">${escapeHtml(event.title)}</h3>
+            <div class="event-datetime">${escapeHtml(event.datetime)}</div>
+            <div class="event-location">${escapeHtml(event.location)}</div>
           </div>
           <div class="card-body">
             ${
-              ev.description
-                ? `<p class="event-description">${ev.description}</p>`
+              event.description
+                ? `<p class="event-description">${escapeHtml(event.description)}</p>`
                 : ""
             }
           </div>

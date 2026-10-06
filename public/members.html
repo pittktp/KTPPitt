@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rush | Kappa Theta Pi - Pitt</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <link rel="stylesheet" href="/index.css" />
-    <link rel="stylesheet" href="/about.css" />
-    <link rel="stylesheet" href="/rush.css" />
+    <title>Members - Kappa Theta Pi @ Pitt</title>
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <link rel="stylesheet" href="/assets/css/members.css" />
+    <!-- Fonts -->
     <link
       href="https://api.fontshare.com/v2/css?f[]=geist@1&display=swap"
       rel="stylesheet"
@@ -16,16 +16,14 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <meta name="theme-color" content="#ffffff" />
   </head>
-
   <body>
     <!-- ===== NAVBAR ===== -->
     <header>
       <div class="nav-container">
         <div class="logo">
           <a href="/index.html">
-            <img src="/images/logo.png" alt="KTP Logo" />
+            <img src="/assets/images/logo.png" alt="KTP Logo" />
           </a>
         </div>
         <nav class="nav-center">
@@ -36,8 +34,8 @@
           </div>
           <ul class="nav-links">
             <li><a href="/about.html">About Us</a></li>
-            <li><a href="/members.html">Members</a></li>
-            <li><a href="/rush.html" class="active">Rush</a></li>
+            <li><a href="/members.html" class="active">Members</a></li>
+            <li><a href="/rush.html">Rush</a></li>
             <li><a href="/contact.html">Contact</a></li>
           </ul>
         </nav>
@@ -47,20 +45,36 @@
     <!-- Mobile Menu Overlay -->
     <div class="nav-overlay" id="nav-overlay"></div>
 
-    <!-- HERO (uses same styles as about page) -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Learn About Joining KTP!</h1>
-        <p id="rush-subtitle">Join us for our Rush!</p>
-        <p>
-          Remember: You must attend at least <strong>2</strong> rush events to
-          be considered for an interview.
-        </p>
-        <div id="schedule-cards" class="schedule-cards" aria-live="polite">
-          <!-- schedule cards will be rendered here by rush.js -->
+    <div class="runner">
+      <h1>Our Tech-Loving Community</h1>
+    </div>
+
+    <!-- Content -->
+    <main class="members-page">
+      <section class="current-members">
+        <div class="container section-buttons" role="group" aria-label="Member groups">
+          <button class="section-button active" id="executive-button" type="button" aria-pressed="true">E-Board</button>
+          <button class="section-button" id="general-button" type="button" aria-pressed="false">G-Board</button>
+          <button class="section-button" id="actives-button" type="button" aria-pressed="false">Actives</button>
         </div>
-      </div>
-    </section>
+
+        <div class="members-content container">
+          <h2 id="members-label">Executive Board</h2>
+          <div class="members-grid" id="members-grid">
+            <!-- DYNAMICALLY LOAD PEOPLE BASED ON WHICH FILTER IS SELECTED -->
+          </div>
+        </div>
+
+      </section>
+
+      <section class="alumni-members">
+        <div class="members-content container">
+          <h2>Our Talented Alumni</h2>
+          <div class="alumni-list" id="alumni-list"></div>
+        </div>
+      </section>
+
+    </main>
 
     <!-- ===== FOOTER ===== -->
     <footer id="contact">
@@ -76,12 +90,12 @@
         <div>
           <h3>Follow Us</h3>
           <p>
-            <a href="https://www.instagram.com/ktp_pitt/" target="_blank"
+            <a href="https://www.instagram.com/ktp_pitt/" target="_blank" rel="noopener noreferrer"
               >Instagram</a
             ><br />
             <a
               href="https://www.linkedin.com/company/kappa-theta-pi-pitt/"
-              target="_blank"
+              target="_blank" rel="noopener noreferrer"
               >LinkedIn</a
             >
           </p>
@@ -89,7 +103,7 @@
         <div>
           <h3>National</h3>
           <p>
-            <a href="https://www.kappathetapi.org/" target="_blank"
+            <a href="https://www.kappathetapi.org/" target="_blank" rel="noopener noreferrer"
               >Visit Nationals</a
             >
           </p>
@@ -103,8 +117,8 @@
         Kappa Theta Pi @ Pitt. All rights reserved.
       </p>
     </footer>
-  </body>
 
-  <script src="/rush.js"></script>
-  <script src="/about.js"></script>
+    <script src="/assets/js/site.js"></script>
+    <script src="/assets/js/members.js"></script>
+  </body>
 </html>

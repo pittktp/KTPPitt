@@ -1,169 +1,79 @@
-# Kappa Theta Pi @ Pitt - Official Website
+# Kappa Theta Pi @ Pitt
 
-This is the official website repository for **Kappa Theta Pi (KTP) @ Pitt**, a professional technology fraternity at the University of Pittsburgh.
+Official website for the Beta Chapter of Kappa Theta Pi at the University of Pittsburgh. The frontend uses HTML, CSS, and vanilla JavaScript. An Express server hosts the site and proxies read-only requests to the Google Sheets API for member and rush data.
 
-## 🚀 Project Overview
+## Project structure
 
-This is a dynamic website built with vanilla JavaScript, HTML, and CSS, featuring a Node.js backend that integrates with the Google Sheets API to manage member information and rush event schedules on the fly from KTP's master spreadsheet.
+```text
+KTPPitt/
+├── api/
+│   └── index.js              # Vercel serverless entrypoint
+├── docs/
+│   └── archive/              # Retired prototypes kept for reference
+├── public/                   # Files served to browsers
+│   ├── assets/
+│   │   ├── css/              # Shared and page-specific styles
+│   │   ├── images/           # Site images and favicon
+│   │   └── js/               # Shared and page-specific browser scripts
+│   ├── index.html
+│   ├── about.html
+│   ├── contact.html
+│   ├── members.html
+│   └── rush.html
+├── src/
+│   └── server.js             # Express app and Sheets API proxy
+├── eslint.config.js
+├── stylelint.config.js
+└── vercel.json
+```
 
-## 📁 Project Structure
+## Local setup
 
-- `index.html` - Landing page with hero, about preview, and rush preview
-- `about.html` - About Us page with tabbed sections
-- `members.html` - Members directory with E-Board, G-Board, Members, and Alumni
-- `rush.html` - Rush events schedule
-- `index.css` - Global styles and navbar
-- `about.css` - About page specific styles
-- `members.css` - Members page specific styles
-- `rush.css` - Rush page specific styles
-- `index.js` - Landing page JavaScript
-- `about.js` - About page tab navigation and modal functionality
-- `members.js` - Members page - fetches and renders member data from Google Sheets
-- `rush.js` - Rush page - fetches and renders rush events from Google Sheets
-- `server.js` - Node server with Google Sheets API proxy
+Requirements:
 
-## 🛠️ Tech Stack
+- Node.js 20.19 or newer
+- A readable Google Sheet and Google Sheets API key
 
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **Backend**: Node.js
-- **Data Source**: Google Sheets API v4
-- **Font**: Geist (via Fontshare), Inter (via Google Fonts)
-- **Deployment**: Ready for static hosting + Node.js server
+Install dependencies:
 
-## ✨ Features
+```bash
+npm install
+```
 
-### 🏠 Landing Page (`index.html`)
+Create a `.env` file in the repository root:
 
-- Hero section with call-to-action
-- About Us preview section
-- Members showcase with officer cards
-- Rush events preview
-- Responsive navigation with mobile menu
+```env
+GOOGLE_SHEET_ID=your_google_sheet_id
+GOOGLE_API_KEY=your_google_api_key
+PORT=3000
+```
 
-### 📖 About Us Page (`about.html`)
+Start the development server:
 
-- **Tabbed Navigation** with 4 sections:
-  - President's Welcome (with photo modal)
-  - Our Pillars (5 core pillars with icons)
-  - History
-  - DEI Commitment
-- Interactive photo modal for president headshot
-- Dynamic tab switching via JavaScript
+```bash
+npm run dev
+```
 
-### 👥 Members Page (`members.html`)
+Open `http://localhost:3000`.
 
-- **Member Grid**: Buttons on the screen will allow users to navigate between each member grid
-  - **Executive Board (E-Board)** - Grid layout
-  - **General Board (G-Board)** - Grid layout
-  - **Active Members** - Grid of all current members (excluding board)
-- **Alumni Section** - List view with graduation years
-- **Dynamic Data**: All member information fetched from Google Sheets API
-- Photo support with Google Drive integration
-- LinkedIn profile links
-- Automatic matching of board members with member database
+## Commands
 
-### 🎉 Rush Page (`rush.html`)
+- `npm run dev` — run the server with automatic restarts
+- `npm start` — run the production server
+- `npm run lint` — lint JavaScript, HTML, and CSS
+- `npm run check` — run the full project check
 
-- **Dynamic Rush Schedule** loaded from Google Sheets
-- Event cards with:
-  - Event name
-  - Date and time
-  - Location
-  - Description (expandable on click)
-- Automatic semester detection from sheet title (e.g., "2026 Spring")
-- Interactive card expansion for more details
+## Data integration
 
-## 🔌 API Integration
+The server exposes `GET /api/sheets/:sheetName` and keeps the Google API credentials out of browser code.
 
-### Google Sheets API Proxy
+- `members.js` reads `Board Contacts` and `Majors & Basic Info`.
+- `rush.js` reads `Rush`.
 
-The server acts as a secure proxy to Google Sheets API, keeping API credentials server-side.
+Update those sheet tabs to change member, board, alumni, and rush content.
 
-**Endpoint**: `GET /api/sheets/:sheetName`
+## Deployment
 
-#### Used by `members.js`:
+`vercel.json` routes requests through `api/index.js`, which exports the Express app from `src/server.js`. Static files under `public/` are bundled with the serverless function.
 
-- Fetches from **"Board Contacts"** sheet for E-Board and G-Board data
-- Fetches from **"Majors & Basic Info"** sheet for all member information
-- Automatically merges board positions with member photos/details
-- Filters alumni vs active members
-
-#### Used by `rush.js`:
-
-- Fetches from **"Rush"** sheet for event schedule
-- Parses structured data from specific row/column layout
-- Supports multiple events per semester
-- Dynamic title injection from sheet
-
-## 🚀 Setup & Installation
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm or yarn
-- Google Sheets API credentials
-- Google Sheet with proper structure (see API Integration section)
-
-### Installation Steps
-
-1. **Clone the repository**
-
-   ```bash
-   git clone https://github.com/pittktp/KTPPitt.git
-   cd KTPPitt
-   ```
-
-2. **Install dependencies**
-
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables**
-
-   Create a `.env` file in the root directory:
-
-   ```env
-   GOOGLE_SHEET_ID=your_google_sheet_id_here
-   GOOGLE_API_KEY=your_google_api_key_here
-   PORT=3000
-   ```
-
-4. **Get Google Sheets API credentials**
-
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing
-   - Enable Google Sheets API
-   - Create API Key (restrict to Sheets API and your domain)
-   - Make sure your Google Sheet is shared with "Anyone with the link can view"
-   - Copy the Sheet ID from the URL: `https://docs.google.com/spreadsheets/d/{SHEET_ID}/edit`
-
-5. **Run the development server**
-
-   ```bash
-   npm run dev
-   ```
-
-   Or for production:
-
-   ```bash
-   npm start
-   ```
-
-6. **Access the website**
-
-   Open browser to `http://localhost:3000`
-
-## 📝 Scripts
-
-- `npm start` - Start production server
-
-## Updating Content
-
-- **Member data**: Update connected Google Sheet "Majors & Basic Info"
-- **Board positions**: Update connected Google Sheet "Board Contacts"
-- **Rush events**: Update connected Google Sheet "Rush"
-
-## 🤝 Contributing
-
-For questions or access issues, contact: [upittkappathetapi@gmail.com](mailto:upittkappathetapi@gmail.com)
+For chapter questions or data-access issues, contact [upittkappathetapi@gmail.com](mailto:upittkappathetapi@gmail.com).

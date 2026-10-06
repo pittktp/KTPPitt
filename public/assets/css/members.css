@@ -37,9 +37,11 @@
   margin: 0 0 40px;
 }
 
-.section-button, .section-button:hover,  
-.section-button:focus {
-  padding-left: 70px; 
+.section-button {
+  background-color: #036;
+  color: #f9f9f9;
+  cursor: pointer;
+  padding-left: 70px;
   padding-right: 70px;
   height: 60px;
   text-align: center;
@@ -49,19 +51,28 @@
   border-color: transparent;
 }
 
-.section-button{
-  background-color:#003366;
-  color:#f9f9f9;
-}
-
 .section-button:hover {
-  background-color:#caddf0;
-  color:#003366;
+  background-color: #caddf0;
+  color: #036;
 }
 
-.section-button:focus {
-  background-color:#b1c9e0;
-  color:#003366;
+.section-button:focus,
+.section-button.active {
+  background-color: #b1c9e0;
+  color: #036;
+}
+
+.section-buttons {
+  width: min(100%, 1000px);
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 32px;
+}
+
+.members-content {
+  display: block;
+  width: 100%;
+  padding-bottom: 60px;
 }
 
 /* Runner */
@@ -75,7 +86,7 @@
   text-align: center;
   padding: 0 20px;
   overflow: hidden;
-  border-bottom: 4px dotted #003366;
+  border-bottom: 4px dotted #036;
 }
 
 .runner::before {
@@ -98,7 +109,7 @@
   bottom: 0;
   width: 100%;
   height: 100px;
-  background: #006644; /* Medium green */
+  background: #064; /* Medium green */
   clip-path: path('M 0,50 Q 200,10 400,50 T 800,50 T 1200,50 T 1600,50 T 2000,50 L 2000,100 L 0,100 Z');
   opacity: 0.12;
   z-index: 1;
@@ -110,7 +121,7 @@
   font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 800;
   margin-bottom: 15px;
-  color: #003366;
+  color: #036;
 }
 
 .eboard-section {
@@ -145,12 +156,13 @@
 .profile-card {
   background: white;
   border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
   min-width: 280px;
   max-width: 280px;
   flex-shrink: 0;
   text-align: center;
   padding: 30px 20px;
+  width: 100%;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -158,7 +170,7 @@
 
 .profile-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 12%);
 }
 
 .profile-image {
@@ -167,7 +179,7 @@
   margin: 0 auto 20px;
   border-radius: 50%;
   overflow: hidden;
-  background: linear-gradient(135deg, #006644 0%, #003366 100%);
+  background: linear-gradient(135deg, #064 0%, #036 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -195,7 +207,7 @@
 .profile-info .position {
   font-size: 1rem;
   font-weight: 600;
-  color: #006644;
+  color: #064;
   margin-bottom: 8px;
 }
 
@@ -226,7 +238,7 @@
 }
 
 .profile-info .contact-info a {
-  color: #006644;
+  color: #064;
   text-decoration: none;
 }
 
@@ -263,7 +275,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.7);
+  background: rgb(0 0 0 / 70%);
   color: white;
   border: none;
   width: 40px;
@@ -279,7 +291,7 @@
 }
 
 .slider-btn:hover {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgb(0 0 0 / 90%);
 }
 
 .slider-btn.prev {
@@ -300,7 +312,7 @@
 .member-card {
   background: white;
   border-radius: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
   overflow: hidden;
   text-align: center;
   transition:
@@ -310,13 +322,13 @@
 
 .member-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgb(0 0 0 / 10%);
 }
 
 .member-image {
   width: 100%;
   height: 220px;
-  background: linear-gradient(135deg, #006644 0%, #003366 100%);
+  background: linear-gradient(135deg, #064 0%, #036 100%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -394,7 +406,7 @@
 .alumni-item {
   background: white;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -402,7 +414,7 @@
 
 .alumni-item:hover {
   transform: translateX(5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
 }
 
 .alumni-link {
@@ -459,7 +471,7 @@ h2 {
   text-align: center;
   justify-content: center;
   font-weight: 650;
-  color: #003366;
+  color: #036;
   font-size: 40px;
   padding-top: 50px;
 }
@@ -469,16 +481,18 @@ h2 {
   20% {
     content: ".";
   }
+
   40% {
     content: "..";
   }
+
   60%,
   100% {
     content: "...";
   }
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .section-title,
   .section .section-title,
   .section h1.section-title,
@@ -515,7 +529,7 @@ h2 {
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .members-page {
     padding-top: 60px;
   }
@@ -543,5 +557,13 @@ h2 {
 
   .members-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-button,
+  .section-button:hover,
+  .section-button:focus {
+    width: 100%;
+    padding-right: 24px;
+    padding-left: 24px;
   }
 }

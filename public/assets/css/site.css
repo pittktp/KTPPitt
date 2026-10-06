@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Geist", "Inter", sans-serif;
+  font-family: Geist, Inter, sans-serif;
   background: #fffdf9;
   color: #222;
   line-height: 1.7;
@@ -26,6 +26,7 @@ header {
   top: 0;
   z-index: 1000;
   background: transparent;
+
   /* transparent at top */
   border-bottom: none;
   padding: 20px 40px;
@@ -38,7 +39,7 @@ header {
 header.scrolled {
   background: #fff;
   border-bottom: 1px solid #eee;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 10px rgb(0 0 0 / 8%);
   padding: 10px 40px;
 }
 
@@ -90,8 +91,8 @@ header.scrolled {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: #006644;
-  border-bottom: 2px solid #006644;
+  color: #064;
+  border-bottom: 2px solid #064;
   padding-bottom: 2px;
 }
 
@@ -136,7 +137,7 @@ header.scrolled {
     500px
   );
   height: 100%;
-  background: #006644;
+  background: #064;
   clip-path: polygon(33% 0, 100% 0, 100% 100%, 0 100%);
   z-index: 0;
   opacity: 0.15;
@@ -167,9 +168,9 @@ header.scrolled {
   border-radius: 12px;
   padding: 10px;
   box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.15),
-    0 1px 3px rgba(0, 0, 0, 0.1),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+    0 4px 12px rgb(0 0 0 / 15%),
+    0 1px 3px rgb(0 0 0 / 10%),
+    inset 0 0 0 1px rgb(0 0 0 / 5%);
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -188,6 +189,8 @@ header.scrolled {
 
 /* Card Positions - Scattered around the hero */
 .card-1 {
+  --rotate: -12deg;
+
   top: 8%;
   left: 5%;
   transform: rotate(-12deg);
@@ -195,6 +198,8 @@ header.scrolled {
 }
 
 .card-2 {
+  --rotate: 8deg;
+
   top: 15%;
   left: 15%;
   transform: rotate(8deg);
@@ -204,6 +209,8 @@ header.scrolled {
 }
 
 .card-3 {
+  --rotate: 15deg;
+
   top: 5%;
   right: 12%;
   transform: rotate(15deg);
@@ -211,6 +218,8 @@ header.scrolled {
 }
 
 .card-4 {
+  --rotate: -8deg;
+
   top: 45%;
   left: 3%;
   transform: rotate(-8deg);
@@ -220,6 +229,8 @@ header.scrolled {
 }
 
 .card-5 {
+  --rotate: 10deg;
+
   bottom: 12%;
   left: 8%;
   transform: rotate(10deg);
@@ -227,6 +238,8 @@ header.scrolled {
 }
 
 .card-6 {
+  --rotate: -15deg;
+
   top: 50%;
   right: 5%;
   transform: rotate(-15deg);
@@ -234,6 +247,8 @@ header.scrolled {
 }
 
 .card-7 {
+  --rotate: 12deg;
+
   bottom: 15%;
   right: 10%;
   transform: rotate(12deg);
@@ -243,6 +258,8 @@ header.scrolled {
 }
 
 .card-8 {
+  --rotate: -10deg;
+
   top: 25%;
   right: 5%;
   transform: rotate(-10deg);
@@ -253,6 +270,8 @@ header.scrolled {
 }
 
 .card-9 {
+  --rotate: 18deg;
+
   bottom: 25%;
   left: 18%;
   transform: rotate(18deg);
@@ -263,6 +282,8 @@ header.scrolled {
 }
 
 .card-10 {
+  --rotate: -5deg;
+
   top: 35%;
   left: 12%;
   transform: rotate(-5deg);
@@ -278,40 +299,10 @@ header.scrolled {
   100% {
     transform: translateY(0) rotate(var(--rotate));
   }
+
   50% {
     transform: translateY(-15px) rotate(var(--rotate));
   }
-}
-
-.card-1 {
-  --rotate: -12deg;
-}
-.card-2 {
-  --rotate: 8deg;
-}
-.card-3 {
-  --rotate: 15deg;
-}
-.card-4 {
-  --rotate: -8deg;
-}
-.card-5 {
-  --rotate: 10deg;
-}
-.card-6 {
-  --rotate: -15deg;
-}
-.card-7 {
-  --rotate: 12deg;
-}
-.card-8 {
-  --rotate: -10deg;
-}
-.card-9 {
-  --rotate: 18deg;
-}
-.card-10 {
-  --rotate: -5deg;
 }
 
 /* Hover effect */
@@ -319,15 +310,15 @@ header.scrolled {
   transform: scale(1.05) rotate(0deg) !important;
   z-index: 5;
   box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.2),
-    0 2px 6px rgba(0, 0, 0, 0.15);
+    0 8px 24px rgb(0 0 0 / 20%),
+    0 2px 6px rgb(0 0 0 / 15%);
 }
 
 .hero h1 {
   font-size: clamp(2rem, 6vw, 3.5rem);
   font-weight: 800;
   margin-bottom: 15px;
-  color: #003366;
+  color: #036;
 }
 
 .hero p {
@@ -337,7 +328,7 @@ header.scrolled {
 }
 
 .hero-button {
-  background: #006644;
+  background: #064;
   color: #fff;
   padding: 14px 28px;
   border-radius: 50px;
@@ -371,7 +362,7 @@ header.scrolled {
   font-size: 2.4rem;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #003366;
+  color: #036;
 }
 
 .section p {
@@ -390,7 +381,7 @@ header.scrolled {
 .card {
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 12px rgb(0 0 0 / 8%);
   padding: 20px;
   text-align: center;
   transition:
@@ -400,7 +391,7 @@ header.scrolled {
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgb(0 0 0 / 10%);
 }
 
 .card img {
@@ -412,7 +403,7 @@ header.scrolled {
 .card h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #003366;
+  color: #036;
 }
 
 .card p {
@@ -429,12 +420,12 @@ header.scrolled {
 }
 
 .rush-card {
-  background: #006644;
+  background: #064;
   color: #fff;
   padding: 40px;
   border-radius: 16px;
   transform: skew(-3deg);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgb(0 0 0 / 10%);
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -442,7 +433,7 @@ header.scrolled {
 
 .rush-card:hover {
   transform: skew(-3deg) translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 20px rgb(0 0 0 / 15%);
 }
 
 .rush-card h3 {
@@ -458,7 +449,7 @@ header.scrolled {
 
 /* === Footer === */
 footer {
-  background: #003366;
+  background: #036;
   color: #fafafa;
   padding: 60px 40px 30px;
   font-size: 0.95rem;
@@ -479,7 +470,7 @@ footer h3 {
 
 footer a {
   color: #fafafa;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgb(255 255 255 / 30%);
 }
 
 footer a:hover {
@@ -507,7 +498,7 @@ footer .copyright {
 .menu-toggle span {
   width: 25px;
   height: 3px;
-  background: #003366;
+  background: #036;
   border-radius: 3px;
   transition: 0.3s;
 }
@@ -520,7 +511,7 @@ footer .copyright {
   left: 0;
   width: 100%;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0 0 0 / 50%);
   z-index: 999;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
@@ -531,7 +522,7 @@ footer .copyright {
   opacity: 1;
 }
 
-@media (max-width: 1024px) {
+@media (width <= 1024px) {
   .playing-card {
     width: 140px;
     height: 185px;
@@ -559,7 +550,7 @@ footer .copyright {
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   .playing-card {
     width: 110px;
     height: 145px;
@@ -580,7 +571,7 @@ footer .copyright {
   }
 }
 
-@media (max-width: 650px) {
+@media (width <= 650px) {
   .hero::before,
   .hero::after {
     display: none;
@@ -618,7 +609,7 @@ footer .copyright {
     left: 0;
     width: 100%;
     height: 300px;
-    background: #006644;
+    background: #064;
     clip-path: polygon(0 40%, 100% 0, 100% 100%, 0 100%);
     opacity: 0.12;
     z-index: 999;
@@ -626,7 +617,7 @@ footer .copyright {
   }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   /* Change grid to push hamburger to the right */
   .nav-container {
     grid-template-columns: auto 1fr;
@@ -649,7 +640,7 @@ footer .copyright {
     width: 280px;
     max-width: 80vw;
     padding: 100px 40px 40px;
-    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.15);
+    box-shadow: -4px 0 12px rgb(0 0 0 / 15%);
     transform: translateX(100%);
     transition: transform 0.3s ease-in-out;
     z-index: 1000;
@@ -673,8 +664,8 @@ footer .copyright {
 
   .nav-links a:hover,
   .nav-links a.active {
-    color: #006644;
-    border-bottom-color: #006644;
+    color: #064;
+    border-bottom-color: #064;
   }
 
   .menu-toggle {
@@ -683,7 +674,7 @@ footer .copyright {
   }
 
   .menu-toggle.open span {
-    background: #003366;
+    background: #036;
   }
 
   .section {

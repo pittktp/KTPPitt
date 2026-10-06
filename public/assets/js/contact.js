@@ -1,13 +1,15 @@
 // Initialize EmailJS with your public key
-emailjs.init("CNHh5KZ4bbNil_Ano"); // Public key provided by user
+emailjs.init("CNHh5KZ4bbNil_Ano");
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contact-form");
   const successMessage = document.getElementById("success-message");
   const errorMessage = document.getElementById("error-message");
 
-  contactForm.addEventListener("submit", function (e) {
-    e.preventDefault();
+  if (!contactForm || !successMessage || !errorMessage) return;
+
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
     // Hide any previous messages
     successMessage.style.display = "none";
@@ -23,22 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Send email using EmailJS
     // Send email using your EmailJS service and template
-    emailjs
-      .send("service_2plmwok", "template_ndc7jbq", {
+    try {
+      await emailjs.send("service_2plmwok", "template_ndc7jbq", {
         from_name: formData.name,
         from_email: formData.email,
         subject: formData.subject,
         message: formData.message,
-      })
-      .then(function (response) {
-        // Show success message
-        successMessage.style.display = "block";
-        contactForm.reset();
-      })
-      .catch(function (error) {
-        // Show error message
-        errorMessage.style.display = "block";
-        console.error("EmailJS error:", error);
       });
+
+      successMessage.style.display = "block";
+      contactForm.reset();
+    } catch (error) {
+      errorMessage.style.display = "block";
+      console.error("EmailJS error:", error);
+    }
   });
 });
