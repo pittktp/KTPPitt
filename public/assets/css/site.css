@@ -493,6 +493,9 @@ footer .copyright {
   cursor: pointer;
   z-index: 1002;
   position: relative;
+  padding: 8px;
+  border: 0;
+  background: transparent;
 }
 
 .menu-toggle span {

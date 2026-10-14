@@ -1,7 +1,7 @@
 const browserGlobals = {
   console: "readonly",
+  crypto: "readonly",
   document: "readonly",
-  emailjs: "readonly",
   fetch: "readonly",
   IntersectionObserver: "readonly",
   setTimeout: "readonly",
@@ -11,11 +11,13 @@ const browserGlobals = {
 
 const nodeGlobals = {
   __dirname: "readonly",
+  AbortSignal: "readonly",
   console: "readonly",
   fetch: "readonly",
   module: "readonly",
   process: "readonly",
   require: "readonly",
+  URL: "readonly",
 };
 
 module.exports = [
@@ -23,7 +25,7 @@ module.exports = [
     ignores: ["docs/archive/**", "node_modules/**"],
   },
   {
-    files: ["eslint.config.js", "api/**/*.js", "src/**/*.js"],
+    files: ["eslint.config.js", "api/**/*.js", "src/**/*.js", "test/**/*.js"],
     languageOptions: {
       ecmaVersion: "latest",
       globals: nodeGlobals,

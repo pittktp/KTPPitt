@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Kappa Theta Pi at the University of Pittsburgh with questions about the chapter, membership, or partnerships.">
     <title>Contact | Kappa Theta Pi @ Pitt</title>
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
     <link rel="stylesheet" href="/assets/css/site.css">
@@ -12,7 +13,6 @@
     <link href="https://api.fontshare.com/v2/css?f[]=geist@1&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -29,13 +29,13 @@
             <!-- Center: Nav links -->
             <nav class="nav-center">
                 <!-- Mobile Menu Button -->
-                <div class="menu-toggle" id="mobile-menu">
+                <button class="menu-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-controls="primary-navigation" aria-expanded="false">
                     <span></span>
                     <span></span>
                     <span></span>
-                </div>
+                </button>
 
-                <ul class="nav-links">
+                <ul class="nav-links" id="primary-navigation">
                     <li><a href="/about.html">About Us</a></li>
                     <li><a href="/members.html">Members</a></li>
                     <li><a href="/rush.html">Rush</a></li>
@@ -113,25 +113,29 @@
                 <form id="contact-form">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" maxlength="100" autocomplete="name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
+                        <input type="email" id="email" name="email" maxlength="254" autocomplete="email" required>
                     </div>
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
+                        <input type="text" id="subject" name="subject" maxlength="150" required>
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
+                        <textarea id="message" name="message" rows="6" maxlength="5000" required></textarea>
+                    </div>
+                    <div class="form-honeypot" aria-hidden="true">
+                        <label for="website">Website</label>
+                        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                     </div>
                     <button type="submit" class="submit-btn">Send Message</button>
-                    <div id="success-message" class="success-message">
+                    <div id="success-message" class="success-message" role="status" aria-live="polite">
                         Message sent successfully!
                     </div>
-                    <div id="error-message" class="error-message">
+                    <div id="error-message" class="error-message" role="alert">
                         There was an error sending your message. Please try again.
                     </div>
                 </form>

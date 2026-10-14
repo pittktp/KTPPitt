@@ -6,6 +6,7 @@ const navOverlay = document.getElementById("nav-overlay");
 function setMenuOpen(isOpen) {
   navLinks?.classList.toggle("active", isOpen);
   menuToggle?.classList.toggle("open", isOpen);
+  menuToggle?.setAttribute("aria-expanded", String(isOpen));
   navOverlay?.classList.toggle("active", isOpen);
   document.body.style.overflow = isOpen ? "hidden" : "";
 }
@@ -19,6 +20,10 @@ menuToggle?.addEventListener("click", () => {
 });
 
 navOverlay?.addEventListener("click", () => setMenuOpen(false));
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setMenuOpen(false);
+});
 
 navLinks?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => setMenuOpen(false));
