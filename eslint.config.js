@@ -12,8 +12,10 @@ const browserGlobals = {
 const nodeGlobals = {
   __dirname: "readonly",
   AbortSignal: "readonly",
+  Buffer: "readonly",
   console: "readonly",
   fetch: "readonly",
+  Headers: "readonly",
   module: "readonly",
   process: "readonly",
   require: "readonly",

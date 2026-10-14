@@ -1,6 +1,11 @@
 const express = require("express");
+const crypto = require("node:crypto");
 const path = require("path");
-require("dotenv").config();
+const dotenv = require("dotenv");
+
+if (!process.env.VERCEL) {
+  dotenv.config({ path: [".env.local", ".env"] });
+}
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -12,6 +17,7 @@ const PUBLIC_SHEETS = new Set([
 ]);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SUBMISSION_ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const DRIVE_FILE_ID_PATTERN = /^[a-zA-Z0-9_-]{10,}$/;
 const fetchExternal = (...args) => (app.locals.fetch || fetch)(...args);
 
 // Middleware
@@ -35,6 +41,141 @@ app.use(
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });
+});
+
+function getDriveConfig() {
+  const folderId = process.env.GOOGLE_DRIVE_HEADSHOTS_FOLDER_ID;
+  const apiKey = process.env.GOOGLE_API_KEY;
+
+  if (!folderId || !apiKey || !DRIVE_FILE_ID_PATTERN.test(folderId)) {
+    return null;
+  }
+
+  return { folderId, apiKey };
+}
+
+function signHeadshot(fileId, { folderId, apiKey }) {
+  return crypto
+    .createHmac("sha256", apiKey)
+    .update(`${folderId}:${fileId}`)
+    .digest("base64url");
+}
+
+function hasValidHeadshotSignature(fileId, signature, config) {
+  if (typeof signature !== "string") return false;
+
+  const expected = signHeadshot(fileId, config);
+  const actualBuffer = Buffer.from(signature);
+  const expectedBuffer = Buffer.from(expected);
+
+  return (
+    actualBuffer.length === expectedBuffer.length &&
+    crypto.timingSafeEqual(actualBuffer, expectedBuffer)
+  );
+}
+
+async function listDriveHeadshots(config) {
+  const files = [];
+  let pageToken;
+
+  do {
+    const url = new URL("https://www.googleapis.com/drive/v3/files");
+    url.searchParams.set(
+      "q",
+      `'${config.folderId}' in parents and trashed = false and mimeType contains 'image/'`,
+    );
+    url.searchParams.set("fields", "nextPageToken,files(id,name,mimeType)");
+    url.searchParams.set("pageSize", "1000");
+    url.searchParams.set("supportsAllDrives", "true");
+    url.searchParams.set("includeItemsFromAllDrives", "true");
+    url.searchParams.set("key", config.apiKey);
+    if (pageToken) url.searchParams.set("pageToken", pageToken);
+
+    const response = await fetchExternal(url, {
+      headers: { Accept: "application/json" },
+      signal: AbortSignal.timeout(8000),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Google Drive API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    files.push(...(data.files || []));
+    pageToken = data.nextPageToken;
+  } while (pageToken);
+
+  return files.filter(
+    (file) =>
+      DRIVE_FILE_ID_PATTERN.test(file.id || "") &&
+      typeof file.name === "string" &&
+      file.mimeType?.startsWith("image/"),
+  );
+}
+
+app.get("/api/headshots", async (_req, res) => {
+  const config = getDriveConfig();
+  if (!config) {
+    return res.status(500).json({ error: "Headshot folder is not configured." });
+  }
+
+  try {
+    const files = await listDriveHeadshots(config);
+    const headshots = files.map(({ id, name }) => ({
+      id,
+      name,
+      url: `/api/headshots/${id}?signature=${signHeadshot(id, config)}`,
+    }));
+
+    res.set("Cache-Control", "public, s-maxage=300, stale-while-revalidate=600");
+    return res.json({ headshots });
+  } catch (error) {
+    console.error("Error fetching Drive headshots:", error);
+    return res.status(502).json({ error: "Failed to fetch headshots." });
+  }
+});
+
+app.get("/api/headshots/:fileId", async (req, res) => {
+  const config = getDriveConfig();
+  if (!config) {
+    return res.status(500).json({ error: "Headshot folder is not configured." });
+  }
+
+  const { fileId } = req.params;
+  if (
+    !DRIVE_FILE_ID_PATTERN.test(fileId) ||
+    !hasValidHeadshotSignature(fileId, req.query.signature, config)
+  ) {
+    return res.status(404).send("Headshot not found");
+  }
+
+  try {
+    const url = new URL(
+      `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(fileId)}`,
+    );
+    url.searchParams.set("alt", "media");
+    url.searchParams.set("supportsAllDrives", "true");
+    url.searchParams.set("key", config.apiKey);
+
+    const response = await fetchExternal(url, {
+      signal: AbortSignal.timeout(8000),
+    });
+    const contentType = response.headers.get("content-type") || "";
+
+    if (!response.ok || !contentType.startsWith("image/")) {
+      throw new Error(`Google Drive media error: ${response.status}`);
+    }
+
+    const image = Buffer.from(await response.arrayBuffer());
+    res.set({
+      "Cache-Control": "public, max-age=86400, s-maxage=604800, immutable",
+      "Content-Type": contentType,
+    });
+    return res.send(image);
+  } catch (error) {
+    console.error("Error fetching Drive headshot:", error);
+    return res.status(502).send("Unable to load headshot");
+  }
 });
 
 function hasSameOrigin(req) {

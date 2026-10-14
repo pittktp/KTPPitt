@@ -11,6 +11,8 @@ const viewButtons = {
 
 const membersGrid = document.getElementById("members-grid");
 const membersLabel = document.getElementById("members-label");
+const membersCount = document.getElementById("members-count");
+const memberSearch = document.getElementById("member-search");
 const alumniList = document.getElementById("alumni-list");
 
 const memberState = {
@@ -18,6 +20,7 @@ const memberState = {
   executive: [],
   general: [],
   active: [],
+  query: "",
 };
 
 async function fetchSheet(sheetName) {
@@ -29,6 +32,17 @@ async function fetchSheet(sheetName) {
 
   const data = await response.json();
   return data.values || [];
+}
+
+async function fetchHeadshots() {
+  const response = await fetch("/api/headshots");
+
+  if (!response.ok) {
+    throw new Error(`Unable to load headshots (${response.status})`);
+  }
+
+  const data = await response.json();
+  return data.headshots || [];
 }
 
 function rowsToObjects(rows) {
@@ -108,6 +122,29 @@ function getPhoto(member) {
   return fileId
     ? `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`
     : value;
+}
+
+function normalizePersonName(value) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/\.(avif|gif|heic|jpeg|jpg|png|webp)$/i, "")
+    .replace(/\b(headshot|photo|portrait)\b/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+function attachHeadshots(members, headshots) {
+  const headshotsByName = new Map(
+    headshots.map((headshot) => [normalizePersonName(headshot.name), headshot.url]),
+  );
+
+  return members.map((member) => {
+    if (getPhoto(member)) return member;
+
+    const headshot = headshotsByName.get(normalizePersonName(getFullName(member)));
+    return headshot ? { ...member, Headshot: headshot } : member;
+  });
 }
 
 function mergeBoardDetails(boardMembers, members) {
@@ -201,9 +238,29 @@ function renderCurrentView() {
     active: "Active Members",
   };
   const members = memberState[memberState.activeView];
+  const query = memberState.query.trim().toLowerCase();
+  const visibleMembers = query
+    ? members.filter((member) =>
+        [
+          getFullName(member),
+          member.Position,
+          member.Year,
+          getMajor(member),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase()
+          .includes(query),
+      )
+    : members;
   const isBoardView = memberState.activeView !== "active";
 
   membersLabel.textContent = labels[memberState.activeView];
+  if (membersCount) {
+    membersCount.textContent = query
+      ? `${visibleMembers.length} of ${members.length} members`
+      : `${members.length} ${members.length === 1 ? "member" : "members"}`;
+  }
   membersGrid.replaceChildren();
 
   for (const [view, button] of Object.entries(viewButtons)) {
@@ -212,19 +269,28 @@ function renderCurrentView() {
     button?.setAttribute("aria-pressed", String(isActive));
   }
 
-  if (members.length === 0) {
-    appendText(membersGrid, "p", "no-data", "No members found.");
+  if (visibleMembers.length === 0) {
+    appendText(
+      membersGrid,
+      "p",
+      "no-data",
+      query ? "No members match your search." : "No members found.",
+    );
     return;
   }
 
-  members.forEach((member) =>
+  visibleMembers.forEach((member) =>
     membersGrid.appendChild(createMemberCard(member, isBoardView)),
   );
 }
 
 function renderAlumni(members) {
   if (!alumniList) return;
-  const alumni = members.filter((member) => member.Alumni === "Alumni");
+  const alumni = members
+    .filter((member) => member.Alumni === "Alumni")
+    .sort((first, second) =>
+      getFullName(first).localeCompare(getFullName(second)),
+    );
   alumniList.replaceChildren();
 
   if (alumni.length === 0) {
@@ -270,25 +336,39 @@ async function loadMembers() {
   showStatus("Loading member data…", "loading");
 
   try {
-    const [boardRows, memberRows] = await Promise.all([
+    const [boardRows, memberRows, headshots] = await Promise.all([
       fetchSheet(SHEETS.board),
       fetchSheet(SHEETS.members),
+      fetchHeadshots().catch((error) => {
+        console.warn("Headshots are unavailable:", error);
+        return [];
+      }),
     ]);
-    const members = rowsToObjects(memberRows);
+    const members = attachHeadshots(rowsToObjects(memberRows), headshots);
     const board = parseBoardRows(boardRows);
 
-    memberState.executive = mergeBoardDetails(board.executive, members);
-    memberState.general = mergeBoardDetails(board.general, members);
+    memberState.executive = attachHeadshots(
+      mergeBoardDetails(board.executive, members),
+      headshots,
+    );
+    memberState.general = attachHeadshots(
+      mergeBoardDetails(board.general, members),
+      headshots,
+    );
     const boardNames = new Set(
       [...memberState.executive, ...memberState.general].map((member) =>
         getFullName(member).toLowerCase(),
       ),
     );
-    memberState.active = members.filter(
-      (member) =>
-        member.Alumni !== "Alumni" &&
-        !boardNames.has(getFullName(member).toLowerCase()),
-    );
+    memberState.active = members
+      .filter(
+        (member) =>
+          member.Alumni !== "Alumni" &&
+          !boardNames.has(getFullName(member).toLowerCase()),
+      )
+      .sort((first, second) =>
+        getFullName(first).localeCompare(getFullName(second)),
+      );
 
     renderCurrentView();
     renderAlumni(members);
@@ -307,5 +387,10 @@ for (const [view, button] of Object.entries(viewButtons)) {
     renderCurrentView();
   });
 }
+
+memberSearch?.addEventListener("input", (event) => {
+  memberState.query = event.target.value;
+  renderCurrentView();
+});
 
 loadMembers();

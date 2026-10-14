@@ -77,6 +77,92 @@ test("proxies allowed worksheets and sets an edge cache policy", async () => {
   }
 });
 
+test("requires headshot folder configuration", async () => {
+  const response = await fetch(`${baseUrl}/api/headshots`);
+
+  assert.equal(response.status, 500);
+  assert.deepEqual(await response.json(), {
+    error: "Headshot folder is not configured.",
+  });
+});
+
+test("lists Drive headshots and proxies signed image requests", async () => {
+  const folderId = "folder-id-12345";
+  const fileId = "image-id-12345";
+  const imageBytes = new Uint8Array([137, 80, 78, 71]);
+  const upstreamRequests = [];
+
+  process.env.GOOGLE_DRIVE_HEADSHOTS_FOLDER_ID = folderId;
+  process.env.GOOGLE_API_KEY = "drive-api-key";
+  app.locals.fetch = async (url) => {
+    const requestUrl = new URL(url);
+    upstreamRequests.push(requestUrl);
+
+    if (requestUrl.pathname === "/drive/v3/files") {
+      return {
+        ok: true,
+        json: async () => ({
+          files: [
+            { id: fileId, name: "Test Member.jpg", mimeType: "image/jpeg" },
+            { id: "document-id-123", name: "Notes", mimeType: "text/plain" },
+          ],
+        }),
+      };
+    }
+
+    return {
+      ok: true,
+      status: 200,
+      headers: new Headers({ "Content-Type": "image/jpeg" }),
+      arrayBuffer: async () => imageBytes.buffer,
+    };
+  };
+
+  try {
+    const listResponse = await fetch(`${baseUrl}/api/headshots`);
+    const data = await listResponse.json();
+
+    assert.equal(listResponse.status, 200);
+    assert.equal(data.headshots.length, 1);
+    assert.equal(data.headshots[0].name, "Test Member.jpg");
+    assert.match(
+      data.headshots[0].url,
+      /^\/api\/headshots\/image-id-12345\?signature=/,
+    );
+    assert.doesNotMatch(data.headshots[0].url, /drive-api-key/);
+    assert.equal(
+      listResponse.headers.get("cache-control"),
+      "public, s-maxage=300, stale-while-revalidate=600",
+    );
+
+    const listRequest = upstreamRequests[0];
+    assert.equal(listRequest.searchParams.get("key"), "drive-api-key");
+    assert.match(listRequest.searchParams.get("q"), /folder-id-12345/);
+    assert.equal(listRequest.searchParams.get("supportsAllDrives"), "true");
+
+    const invalidImage = await fetch(
+      `${baseUrl}/api/headshots/${fileId}?signature=invalid`,
+    );
+    assert.equal(invalidImage.status, 404);
+
+    const imageResponse = await fetch(`${baseUrl}${data.headshots[0].url}`);
+    assert.equal(imageResponse.status, 200);
+    assert.equal(imageResponse.headers.get("content-type"), "image/jpeg");
+    assert.deepEqual(
+      new Uint8Array(await imageResponse.arrayBuffer()),
+      imageBytes,
+    );
+
+    const mediaRequest = upstreamRequests[1];
+    assert.equal(mediaRequest.pathname, `/drive/v3/files/${fileId}`);
+    assert.equal(mediaRequest.searchParams.get("alt"), "media");
+  } finally {
+    delete app.locals.fetch;
+    delete process.env.GOOGLE_DRIVE_HEADSHOTS_FOLDER_ID;
+    delete process.env.GOOGLE_API_KEY;
+  }
+});
+
 test("validates contact submissions before calling Resend", async () => {
   const response = await fetch(`${baseUrl}/api/contact`, {
     method: "POST",

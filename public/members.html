@@ -47,20 +47,38 @@
     <div class="nav-overlay" id="nav-overlay"></div>
 
     <div class="runner">
-      <h1>Our Tech-Loving Community</h1>
+      <div class="runner-content">
+        <p class="page-kicker">The people behind KTP Pitt</p>
+        <h1>Meet Our Chapter</h1>
+        <p>Technologists, builders, and friends learning from one another across every major.</p>
+      </div>
     </div>
 
     <!-- Content -->
     <main class="members-page">
       <section class="current-members">
-        <div class="container section-buttons" role="group" aria-label="Member groups">
-          <button class="section-button active" id="executive-button" type="button" aria-pressed="true">E-Board</button>
-          <button class="section-button" id="general-button" type="button" aria-pressed="false">G-Board</button>
-          <button class="section-button" id="actives-button" type="button" aria-pressed="false">Actives</button>
+        <div class="member-controls">
+          <div class="container member-controls-inner">
+            <div class="section-buttons" role="group" aria-label="Member groups">
+              <button class="section-button active" id="executive-button" type="button" aria-pressed="true">Executive Board</button>
+              <button class="section-button" id="general-button" type="button" aria-pressed="false">General Board</button>
+              <button class="section-button" id="actives-button" type="button" aria-pressed="false">Active Members</button>
+            </div>
+            <label class="member-search">
+              <span class="visually-hidden">Search the selected member group</span>
+              <input id="member-search" type="search" placeholder="Search members" autocomplete="off" />
+            </label>
+          </div>
         </div>
 
         <div class="members-content container">
-          <h2 id="members-label">Executive Board</h2>
+          <div class="directory-heading">
+            <div>
+              <p class="section-kicker">Chapter directory</p>
+              <h2 id="members-label">Executive Board</h2>
+            </div>
+            <p class="members-count" id="members-count" aria-live="polite"></p>
+          </div>
           <div class="members-grid" id="members-grid">
             <!-- DYNAMICALLY LOAD PEOPLE BASED ON WHICH FILTER IS SELECTED -->
           </div>
@@ -70,7 +88,13 @@
 
       <section class="alumni-members">
         <div class="members-content container">
-          <h2>Our Talented Alumni</h2>
+          <div class="directory-heading alumni-heading">
+            <div>
+              <p class="section-kicker">Beyond campus</p>
+              <h2>Our Alumni Network</h2>
+            </div>
+            <p>Continuing to build, lead, and give back.</p>
+          </div>
           <div class="alumni-list" id="alumni-list"></div>
         </div>
       </section>

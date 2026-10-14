@@ -1,569 +1,571 @@
 .members-page {
-  padding-top: 20px;
-  min-height: calc(100vh - 300px);
+  min-height: 70vh;
+  background: #fffdf8;
 }
 
-/* Structure */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.section {
-  padding: 60px 0;
-  display: flex;
-  align-items: center;
-}
-
-.section-title,
-.section .section-title,
-.section h1.section-title,
-.section h2.section-title {
-  font-size: 44px;
-  font-weight: 800;
-  text-align: center;
-  margin: 0 0 8px;
-  color: #315ca9;
-}
-
-.section-description {
-  text-align: center;
-  color: #555;
-  font-size: 1.1rem;
-  margin: 0 0 40px;
-}
-
-.section-button {
-  background-color: #036;
-  color: #f9f9f9;
-  cursor: pointer;
-  padding-left: 70px;
-  padding-right: 70px;
-  height: 60px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 15px;
-  border-radius: 50px/70%;
-  border-color: transparent;
-}
-
-.section-button:hover {
-  background-color: #caddf0;
-  color: #036;
-}
-
-.section-button:focus,
-.section-button.active {
-  background-color: #b1c9e0;
-  color: #036;
-}
-
-.section-buttons {
-  width: min(100%, 1000px);
-  gap: 16px;
-  flex-wrap: wrap;
-  padding-top: 32px;
-}
-
-.members-content {
-  display: block;
-  width: 100%;
-  padding-bottom: 60px;
-}
-
-/* Runner */
-.runner {
-  background: #fffdf9;
-  min-height: 160px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  text-align: center;
-  padding: 0 20px;
-  overflow: hidden;
-  border-bottom: 4px dotted #036;
-}
-
-.runner::before {
-  content: "";
+.visually-hidden {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 120px;
-  background: #00523d; /* Darker green */
-  clip-path: path('M 0,60 Q 150,20 300,60 T 600,60 T 900,60 T 1200,60 T 1500,60 T 1800,60 L 1800,120 L 0,120 Z');
-  opacity: 0.1;
-  z-index: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
+.runner {
+  position: relative;
+  min-height: 330px;
+  margin-top: -102px;
+  padding: 160px 24px 70px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(circle at 18% 20%, rgb(49 92 169 / 20%), transparent 25rem),
+    radial-gradient(circle at 82% 88%, rgb(0 102 68 / 18%), transparent 24rem),
+    linear-gradient(135deg, #f0f4fa, #fffdf8 48%, #edf5ef);
+  border-bottom: 1px solid var(--ktp-line);
+}
+
+.runner::before,
 .runner::after {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  background: #064; /* Medium green */
-  clip-path: path('M 0,50 Q 200,10 400,50 T 800,50 T 1200,50 T 1600,50 T 2000,50 L 2000,100 L 0,100 Z');
-  opacity: 0.12;
+  width: 310px;
+  height: 310px;
+  border: 1px solid rgb(0 51 102 / 9%);
+  border-radius: 44% 56% 65% 35%;
+  transform: rotate(24deg);
+}
+
+.runner::before {
+  top: 70px;
+  left: -135px;
+}
+
+.runner::after {
+  right: -150px;
+  bottom: -165px;
+  border-color: rgb(0 102 68 / 12%);
+  transform: rotate(-32deg);
+}
+
+.runner-content {
+  position: relative;
   z-index: 1;
+  max-width: 760px;
+}
+
+.page-kicker,
+.section-kicker {
+  margin-bottom: 8px;
+  color: var(--ktp-green);
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 .runner h1 {
-  position: relative;
-  z-index: 10;
-  font-size: clamp(2rem, 6vw, 3.5rem);
-  font-weight: 800;
-  margin-bottom: 15px;
-  color: #036;
+  margin: 0;
+  color: var(--ktp-navy);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
 }
 
-.eboard-section {
-  background: #fffdf9;
+.runner-content > p:last-child {
+  max-width: 620px;
+  margin: 18px auto 0;
+  color: #526074;
+  font-size: 1.08rem;
 }
 
-.gboard-section {
-  background: #f9f9f9;
+.member-controls {
+  position: sticky;
+  top: 92px;
+  z-index: 20;
+  padding: 18px 0;
+  background: rgb(255 253 248 / 88%);
+  border-bottom: 1px solid var(--ktp-line);
+  backdrop-filter: blur(16px);
 }
 
-.members-section {
-  background: #fffdf9;
+.members-page .container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding-right: 24px;
+  padding-left: 24px;
 }
 
-.alumni-section {
-  background: #f9f9f9;
-}
-
-.slider-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 20px 60px;
-}
-
-.slider {
+.member-controls-inner {
   display: flex;
-  gap: 20px;
-  transition: transform 0.4s ease-in-out;
-}
-
-.profile-card {
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
-  min-width: 280px;
-  max-width: 280px;
-  flex-shrink: 0;
-  text-align: center;
-  padding: 30px 20px;
-  width: 100%;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.profile-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgb(0 0 0 / 12%);
-}
-
-.profile-image {
-  width: 200px;
-  height: 200px;
-  margin: 0 auto 20px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: linear-gradient(135deg, #064 0%, #036 100%);
-  display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
-.profile-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.section-buttons {
+  display: inline-flex;
+  gap: 5px;
+  padding: 5px;
+  background: #e9eef5;
+  border: 1px solid rgb(0 51 102 / 8%);
+  border-radius: 999px;
 }
 
-.placeholder-image {
-  font-size: 4rem;
-  color: white;
-  font-weight: bold;
-}
-
-.profile-info h3 {
-  font-size: 1.4rem;
+.section-button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #536174;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
   font-weight: 700;
-  margin-bottom: 5px;
-  color: #1a1a1a;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
-.profile-info .position {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #064;
-  margin-bottom: 8px;
+.section-button:hover {
+  color: var(--ktp-navy);
 }
 
-.profile-info .member-year {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #444;
-  margin-bottom: 5px;
+.section-button.active,
+.section-button:focus-visible {
+  background: #fff;
+  color: var(--ktp-navy);
+  box-shadow: 0 3px 12px rgb(0 51 102 / 11%);
 }
 
-.profile-info .member-major {
-  font-size: 0.85rem;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 12px;
-  min-height: 40px;
+.section-button:active {
+  transform: scale(0.98);
 }
 
-.profile-info .year-major {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 15px;
+.member-search {
+  position: relative;
+  display: block;
+  width: min(280px, 100%);
 }
 
-.profile-info .contact-info {
-  font-size: 0.85rem;
-  margin-bottom: 10px;
-}
-
-.profile-info .contact-info a {
-  color: #064;
-  text-decoration: none;
-}
-
-.profile-info .contact-info a:hover {
-  text-decoration: underline;
-}
-
-.profile-info .office-hours {
-  font-size: 0.85rem;
-  color: #555;
-  margin-bottom: 15px;
-  font-style: italic;
-}
-
-.linkedin-btn,
-.profile-info .member-linkedin {
-  display: inline-block;
-  padding: 8px 20px;
-  background: #0077b5;
-  color: white;
-  text-decoration: none;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: background 0.3s ease;
-}
-
-.linkedin-btn:hover,
-.profile-info .member-linkedin:hover {
-  background: #005885;
-}
-
-.slider-btn {
+.member-search::before {
+  content: "";
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  background: rgb(0 0 0 / 70%);
-  color: white;
-  border: none;
-  width: 40px;
-  height: 40px;
+  left: 17px;
+  width: 10px;
+  height: 10px;
+  border: 2px solid #708096;
   border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
+  transform: translateY(-60%);
+  pointer-events: none;
+}
+
+.member-search::after {
+  content: "";
+  position: absolute;
+  top: 25px;
+  left: 28px;
+  width: 7px;
+  height: 2px;
+  background: #708096;
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+.member-search input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0 18px 0 44px;
+  border: 1px solid rgb(0 51 102 / 14%);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ktp-ink);
+  font: inherit;
+  font-size: 0.92rem;
+  box-shadow: 0 5px 18px rgb(10 35 70 / 5%);
+}
+
+.member-search input::placeholder {
+  color: #7a8595;
+}
+
+.members-content {
+  padding-top: 72px;
+  padding-bottom: 90px;
+}
+
+.directory-heading {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease;
-  z-index: 10;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--ktp-line);
 }
 
-.slider-btn:hover {
-  background: rgb(0 0 0 / 90%);
+.directory-heading h2 {
+  margin: 0;
+  padding: 0;
+  color: var(--ktp-navy);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-align: left;
 }
 
-.slider-btn.prev {
-  left: 10px;
-}
-
-.slider-btn.next {
-  right: 10px;
+.members-count,
+.alumni-heading > p {
+  margin-bottom: 6px;
+  color: #6c7788;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .members-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 24px;
+  margin-top: 34px;
 }
 
+.profile-card,
 .member-card {
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+  position: relative;
+  min-width: 0;
   overflow: hidden;
-  text-align: center;
+  background: #fff;
+  border: 1px solid rgb(0 51 102 / 9%);
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgb(10 35 70 / 7%);
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
 }
 
+.profile-card:hover,
 .member-card:hover {
+  border-color: rgb(49 92 169 / 22%);
+  box-shadow: 0 18px 45px rgb(10 35 70 / 12%);
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgb(0 0 0 / 10%);
+}
+
+.profile-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: linear-gradient(90deg, var(--ktp-blue), var(--ktp-green));
+}
+
+.profile-image,
+.member-image {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 30% 25%, rgb(255 255 255 / 20%), transparent 32%),
+    linear-gradient(135deg, var(--ktp-blue), var(--ktp-navy) 50%, var(--ktp-green));
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  margin: 34px auto 20px;
+  border: 6px solid #f3f6fa;
+  border-radius: 50%;
+  box-shadow: 0 10px 30px rgb(10 35 70 / 15%);
 }
 
 .member-image {
   width: 100%;
-  height: 220px;
-  background: linear-gradient(135deg, #064 0%, #036 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  aspect-ratio: 4 / 3;
 }
 
+.profile-image img,
 .member-image img {
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
 }
 
-.member-image .placeholder-image {
+.placeholder-image {
+  color: #fff;
   font-size: 3rem;
-  color: white;
-  font-weight: bold;
+  font-weight: 800;
+  text-shadow: 0 4px 18px rgb(0 0 0 / 14%);
+}
+
+.profile-info,
+.member-info {
+  padding: 2px 22px 26px;
+  text-align: center;
 }
 
 .member-info {
-  padding: 20px 15px;
+  padding-top: 21px;
 }
 
+.profile-info h3,
 .member-info h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 5px;
-  color: #1a1a1a;
+  margin: 0 0 6px;
+  color: var(--ktp-ink);
+  font-size: 1.14rem;
+  font-weight: 750;
+  line-height: 1.25;
 }
 
-.member-info p {
-  font-size: 0.85rem;
-  color: #666;
-  margin-bottom: 8px;
+.profile-info h3 {
+  font-size: 1.24rem;
 }
 
+.profile-info .position,
+.member-info .position {
+  margin-bottom: 9px;
+  color: var(--ktp-green);
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+.profile-info .member-year,
 .member-info .member-year {
-  font-weight: 600;
-  color: #444;
+  margin-bottom: 5px;
+  color: #4e5a6b;
+  font-size: 0.84rem;
+  font-weight: 650;
 }
 
+.profile-info .member-major,
 .member-info .member-major {
-  font-size: 0.8rem;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 12px;
-  min-height: 40px;
+  min-height: 42px;
+  margin-bottom: 16px;
+  color: #6b7585;
+  font-size: 0.82rem;
+  line-height: 1.45;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
-.member-info a.member-linkedin {
-  display: inline-block;
-  padding: 6px 16px;
-  background: #0077b5;
-  color: white;
-  text-decoration: none;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  transition: background 0.3s ease;
+.member-linkedin {
+  display: inline-flex;
+  min-height: 36px;
+  padding: 0 15px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(0 102 68 / 20%);
+  border-radius: 999px;
+  background: rgb(0 102 68 / 7%);
+  color: var(--ktp-green);
+  font-size: 0.78rem;
+  font-weight: 750;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
-.member-info a.member-linkedin:hover {
-  background: #005885;
+.member-linkedin:hover {
+  background: var(--ktp-green);
+  color: #fff;
+}
+
+.alumni-members {
+  background: linear-gradient(180deg, #f2f5f8, #edf2f5);
+  border-top: 1px solid var(--ktp-line);
 }
 
 .alumni-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 15px;
-  margin-top: 30px;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 12px;
+  margin-top: 28px;
 }
 
 .alumni-item {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
+  overflow: hidden;
+  background: rgb(255 255 255 / 86%);
+  border: 1px solid rgb(0 51 102 / 8%);
+  border-radius: 15px;
   transition:
+    background 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .alumni-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+  background: #fff;
+  box-shadow: 0 10px 25px rgb(10 35 70 / 8%);
+  transform: translateY(-2px);
 }
 
 .alumni-link {
+  min-height: 72px;
+  padding: 15px 18px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.alumni-link.no-link {
-  cursor: default;
-}
-
-.alumni-link.no-link:hover {
-  transform: none;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .alumni-name {
-  font-weight: 600;
-  font-size: 1rem;
-  color: #1a1a1a;
+  color: var(--ktp-ink);
+  font-size: 0.94rem;
+  font-weight: 700;
 }
 
 .alumni-details {
-  font-size: 0.9rem;
-  color: #666;
+  color: #788292;
+  font-size: 0.78rem;
+  text-align: right;
 }
 
 .alumni-link:not(.no-link):hover .alumni-name {
-  color: #0077b5;
+  color: var(--ktp-green);
 }
 
 .loading,
 .error,
 .no-data {
+  grid-column: 1 / -1;
+  padding: 68px 22px;
+  color: #697587;
   text-align: center;
-  padding: 60px 20px;
-  font-size: 1.1rem;
-  color: #666;
 }
 
 .error {
-  color: #d32f2f;
+  color: #a62d36;
 }
 
-.loading::after {
-  content: "...";
-  animation: loading 1.5s infinite;
+@media (width <= 860px) {
+  .runner {
+    margin-top: -84px;
+    padding-top: 138px;
+  }
+
+  .member-controls {
+    top: 83px;
+  }
+
+  .member-controls-inner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .section-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .section-button {
+    padding: 0 10px;
+    font-size: 0.76rem;
+  }
+
+  .member-search {
+    width: 100%;
+  }
 }
 
-h2 {
-  text-align: center;
-  justify-content: center;
-  font-weight: 650;
-  color: #036;
-  font-size: 40px;
-  padding-top: 50px;
-}
-
-@keyframes loading {
-  0%,
-  20% {
-    content: ".";
+@media (width <= 600px) {
+  .runner {
+    min-height: 320px;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 
-  40% {
-    content: "..";
+  .runner-content > p:last-child {
+    font-size: 0.98rem;
   }
 
-  60%,
-  100% {
-    content: "...";
-  }
-}
-
-@media (width <= 900px) {
-  .section-title,
-  .section .section-title,
-  .section h1.section-title,
-  .section h2.section-title {
-    font-size: 28px;
+  .member-controls {
+    position: relative;
+    top: auto;
   }
 
-  .section-description {
-    font-size: 1rem;
+  .members-page .container {
+    padding-right: 16px;
+    padding-left: 16px;
   }
 
-  .slider-container {
-    padding: 20px 50px;
+  .section-buttons {
+    grid-template-columns: 1fr;
+    border-radius: 18px;
   }
 
-  .profile-card {
-    min-width: 240px;
-    max-width: 100%;
-    padding: 20px 15px;
+  .section-button {
+    min-height: 40px;
   }
 
-  .profile-image {
-    width: 160px;
-    height: 160px;
+  .members-content {
+    padding-top: 52px;
+    padding-bottom: 65px;
+  }
+
+  .directory-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
   }
 
   .members-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .profile-image {
+    width: 116px;
+    height: 116px;
+    margin-top: 26px;
+  }
+
+  .profile-info,
+  .member-info {
+    padding-right: 13px;
+    padding-bottom: 20px;
+    padding-left: 13px;
+  }
+
+  .profile-info h3,
+  .member-info h4 {
+    font-size: 1rem;
+  }
+
+  .member-image {
+    aspect-ratio: 1;
   }
 
   .alumni-list {
     grid-template-columns: 1fr;
   }
+
+  .alumni-link {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .alumni-details {
+    text-align: left;
+  }
 }
 
-@media (width <= 480px) {
-  .members-page {
-    padding-top: 60px;
-  }
-
-  .section {
-    padding: 40px 0;
-  }
-
-  .section-title,
-  .section .section-title,
-  .section h1.section-title,
-  .section h2.section-title {
-    font-size: 28px;
-  }
-
-  .slider-container {
-    padding: 20px 40px;
-  }
-
-  .slider-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 1rem;
-  }
-
+@media (width <= 380px) {
   .members-grid {
     grid-template-columns: 1fr;
-  }
-
-  .section-button,
-  .section-button:hover,
-  .section-button:focus {
-    width: 100%;
-    padding-right: 24px;
-    padding-left: 24px;
   }
 }
