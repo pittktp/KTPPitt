@@ -112,7 +112,8 @@ function getLinkedIn(member) {
 }
 
 function getPhoto(member) {
-  const value = member.headshot || member.Headshot || member.Photo || "";
+  const value =
+    member.DriveHeadshot || member.headshot || member.Headshot || member.Photo || "";
   if (!value) return "";
 
   const fileMatch = value.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
@@ -140,10 +141,18 @@ function attachHeadshots(members, headshots) {
   );
 
   return members.map((member) => {
-    if (getPhoto(member)) return member;
+    const lastName = member.Last || "";
+    const candidateNames = [
+      getFullName(member),
+      `${member.First || ""} ${lastName}`.trim(),
+      `${member["Preferred First Name"] || ""} ${lastName}`.trim(),
+    ];
+    const headshot = candidateNames
+      .map(normalizePersonName)
+      .map((name) => headshotsByName.get(name))
+      .find(Boolean);
 
-    const headshot = headshotsByName.get(normalizePersonName(getFullName(member)));
-    return headshot ? { ...member, Headshot: headshot } : member;
+    return headshot ? { ...member, DriveHeadshot: headshot } : member;
   });
 }
 

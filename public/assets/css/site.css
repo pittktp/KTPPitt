@@ -718,10 +718,11 @@ footer .copyright {
 }
 
 /* === 2026 visual refresh === */
+/* stylelint-disable no-duplicate-selectors -- refresh rules intentionally override the legacy base layer */
 :root {
-  --ktp-navy: #003366;
+  --ktp-navy: #036;
   --ktp-blue: #315ca9;
-  --ktp-green: #006644;
+  --ktp-green: #064;
   --ktp-green-dark: #004c35;
   --ktp-cream: #fffdf8;
   --ktp-ink: #14213d;
@@ -1106,3 +1107,4 @@ footer > * {
     transition-duration: 0.01ms !important;
   }
 }
+/* stylelint-enable no-duplicate-selectors */
